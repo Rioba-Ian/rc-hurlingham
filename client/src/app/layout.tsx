@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
 import "./globals.css";
-
-export const openSans = Open_Sans({
- subsets: ["latin"],
- variable: "--font-open-sans",
-});
 
 export const metadata: Metadata = {
  title: "Rotaract Club of Hurlingham",
@@ -20,7 +14,7 @@ export default function RootLayout({
 }>) {
  return (
   <html lang="en">
-   <body className={`${openSans.className} antialiased`}>{children}</body>
+   <body className={`antialiased`}>{children}</body>
   </html>
  );
 }
