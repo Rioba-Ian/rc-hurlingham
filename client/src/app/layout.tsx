@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
-
-export const georgiaFont = localFont({
- src: "../fonts/georgia-2/georgia.ttf",
- variable: "--font-georgia",
-});
 
 export const openSans = Open_Sans({
  subsets: ["latin"],
