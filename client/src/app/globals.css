@@ -23,7 +23,7 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    :root:not(.light) {
+    :root {
       --text: 101 74% 91%;
       --background: 0 0% 4%;
       --primary: 338 72% 48%;
@@ -36,7 +36,7 @@
   }
 
   body {
-    background: var(--background);
+    background: var(--background-base);
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
   }
