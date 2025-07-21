@@ -16,14 +16,14 @@ const navigationLinks = [
 export default function Header() {
  return (
   <header className="max-w-[1440px] mx-auto">
-   <nav className="flex items-center justify-between p-4">
+   <nav className="flex items-center justify-between p-2">
     <div>
      <Link href={"/"}>
       <Image
        src={ClubLogo}
        alt="Rotaract Club of Hurlingham Logo"
-       width={240}
-       height={100}
+       width={180}
+       height={80}
        className="inline-block mr-2"
       />
      </Link>
