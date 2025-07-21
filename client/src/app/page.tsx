@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Home from "@/components/organisms/Home";
 
-export default function Home() {
+export default function HomePage() {
  return (
-  <div className="">
-   <p>Welcome to Rac Hurlingham website...</p>
+  <div className="h-full w-full">
+   <Home />
   </div>
  );
 }
