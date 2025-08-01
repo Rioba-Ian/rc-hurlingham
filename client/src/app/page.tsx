@@ -6,6 +6,7 @@ export default function HomePage() {
   <div className="h-full w-full">
    <Home />
    <ImagesSliderDemo />
+   <div className="h-[40rem]"></div>
   </div>
  );
 }

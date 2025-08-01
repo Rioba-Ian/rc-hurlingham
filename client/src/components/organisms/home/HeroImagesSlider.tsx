@@ -2,12 +2,22 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { ImagesSlider } from "@/components/molecules/images-slider";
+import { Raleway } from "next/font/google";
+
+const raleway = Raleway({
+ weight: ["400", "500", "600", "700"],
+ subsets: ["latin"],
+});
 
 export function ImagesSliderDemo() {
  const images = [
-  "https://images.unsplash.com/photo-1485433592409-9018e83a1f0d?q=80&w=1814&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1483982258113-b72862e6cff6?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1482189349482-3defd547e0e9?q=80&w=2848&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068290/rc-hurlingham/IMG_3048_z0edrg.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068288/rc-hurlingham/OGS01818_aenfza.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068286/rc-hurlingham/OGS01821_jorwhj.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068755/rc-hurlingham/OGS01867_vgmaeb.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754069088/rc-hurlingham/IMG_3498_l61mhg.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754069129/rc-hurlingham/OGS01501_qilwbz.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754069144/rc-hurlingham/OGS01536_zfu9hq.jpg",
  ];
  return (
   <ImagesSlider className="h-[40rem] md:h-[48rem]" images={images}>
@@ -21,15 +31,17 @@ export function ImagesSliderDemo() {
      y: 0,
     }}
     transition={{
-     duration: 1.5,
+     duration: 2.5,
     }}
-    className="z-50 flex flex-col justify-center items-center"
+    className="z-50 w-2/3 flex flex-col justify-center items-center"
    >
-    <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
-     The hero section slideshow <br /> nobody asked for
+    <motion.p
+     className={`${raleway.className} "font-medium text-2xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-6"`}
+    >
+     Welcome to the home of the fun and community
     </motion.p>
-    <button className="px-4 py-2 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white mx-auto text-center rounded-full relative mt-4">
-     <span>Join now →</span>
+    <button className="my-2 px-4 py-2 backdrop-blur-sm border bg-cranberry/20 border-cranberry text-cranberry-foreground mx-auto text-center rounded-full relative mt-4">
+     <span>Learn more →</span>
      <div className="absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
     </button>
    </motion.div>

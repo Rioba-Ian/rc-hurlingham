@@ -83,6 +83,10 @@
  --color-sidebar-ring: var(--sidebar-ring);
 
  --screen-2xl: var(--container-screen-2xl);
+
+ /* custom colors */
+ --color-cranberry: var(--cranberry);
+ --color-cranberry-foreground: var(--cranberry-foreground);
 }
 
 :root {
@@ -120,6 +124,9 @@
  --sidebar-ring: oklch(0.708 0 0);
 
  --container-screen-2xl: 1440px;
+
+ --cranberry: oklch(0.704 0.191 22.216);
+ --cranberry-foreground: oklch(0.985 0 0);
 }
 
 .dark {

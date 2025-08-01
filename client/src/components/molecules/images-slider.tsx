@@ -77,7 +77,7 @@ export const ImagesSlider = (props: ImagesSliderProps) => {
   if (autoplay) {
    interval = setInterval(() => {
     handleNext();
-   }, 5000);
+   }, 20000);
   }
 
   return () => {
@@ -97,8 +97,8 @@ export const ImagesSlider = (props: ImagesSliderProps) => {
    rotateX: 0,
    opacity: 1,
    transition: {
-    duration: 0.5,
-    ease: [0.645, 0.045, 0.355, 1.0],
+    duration: 1.0,
+    ease: [0.645, 0.045, 0.355, 1],
    },
   },
   upExit: {
