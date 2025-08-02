@@ -87,6 +87,9 @@
  /* custom colors */
  --color-cranberry: var(--cranberry);
  --color-cranberry-foreground: var(--cranberry-foreground);
+
+ /* fonts */
+ --font-raleway: var(--font-raleway);
 }
 
 :root {

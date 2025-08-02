@@ -1,4 +1,5 @@
 import Home from "@/components/organisms/Home";
+import AboutCarousel from "@/components/organisms/home/AboutCarousel";
 import { ImagesSliderDemo } from "@/components/organisms/home/HeroImagesSlider";
 
 export default function HomePage() {
@@ -6,7 +7,9 @@ export default function HomePage() {
   <div className="h-full w-full">
    <Home />
    <ImagesSliderDemo />
-   <div className="h-[40rem]"></div>
+   <div className="h-[40rem]">
+    <AboutCarousel />
+   </div>
   </div>
  );
 }
