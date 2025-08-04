@@ -8,14 +8,6 @@ import ThemeSwitch from "./ThemeSwitch";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
-const navigationLinks = [
- { name: "Home", href: "/" },
- { name: "About Us", href: "/about" },
- { name: "Events", href: "/events" },
- { name: "Blog", href: "/blog" },
- { name: "Contact", href: "/contact" },
-];
-
 const menuItems = [
  { name: "Home", href: "/" },
  { name: "About Us", href: "/about" },
@@ -80,7 +72,9 @@ export const Header = () => {
          <li key={index}>
           <Link
            href={item.href}
-           className="text-white hover:text-accent-foreground dark:text-white block duration-150"
+           className={`${
+            isScrolled ? "text-neutral-900" : "text-white"
+           }  hover:text-accent-foreground  dark:text-white block duration-150`}
           >
            <span>{item.name}</span>
           </Link>
