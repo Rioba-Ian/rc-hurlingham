@@ -46,10 +46,30 @@ const Card = ({ card }: { card: CardType }) => {
     }}
     className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
    ></div>
-   <div className="absolute inset-0 z-10 grid place-content-center">
-    <p className="bg-gradient-to-br from-white/20 to-white/0 p-8 text-xl font-black uppercase text-white backdrop-blur-lg">
-     {card.title}
-    </p>
+
+   {/* Title at the bottom */}
+   <div className="absolute bottom-0 left-0 right-0 z-10 p-6">
+    <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 rounded-t-lg">
+     <h3 className="text-xl font-black uppercase text-white mb-2">
+      {card.title}
+     </h3>
+
+     {/* Additional content that fades in on hover */}
+     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+      <p className="text-white/90 text-sm leading-relaxed">
+       {card.description}
+      </p>
+      {card.details && (
+       <div className="mt-3 space-y-2">
+        {card.details.map((detail, index) => (
+         <p key={index} className="text-white/70 text-xs">
+          {detail}
+         </p>
+        ))}
+       </div>
+      )}
+     </div>
+    </div>
    </div>
   </div>
  );
@@ -59,6 +79,8 @@ type CardType = {
  url: string;
  title: string;
  id: number;
+ description: string;
+ details?: string[];
 };
 
 export default HorizontalScrollCarousel;
