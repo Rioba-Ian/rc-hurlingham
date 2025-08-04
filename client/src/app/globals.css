@@ -130,6 +130,8 @@
 
  --cranberry: oklch(0.704 0.191 22.216);
  --cranberry-foreground: oklch(0.985 0 0);
+
+ --font-raleway: "Raleway", sans-serif;
 }
 
 .dark {
