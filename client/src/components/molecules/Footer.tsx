@@ -63,7 +63,7 @@ export default function Footer() {
         width={32}
         height={32}
        />
-       <span className="text-xl font-bold">Rotaract Club of Hurlingham</span>
+       <span className="text-xl font-medium">Rotaract Club of Hurlingham</span>
       </Link>
       <p className="mt-4 max-w-xs text-muted-foreground">
        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non

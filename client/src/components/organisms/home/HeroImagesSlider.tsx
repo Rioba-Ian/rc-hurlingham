@@ -11,10 +11,10 @@ const raleway = Raleway({
 
 export function ImagesSliderDemo() {
  const images = [
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068290/rc-hurlingham/IMG_3048_z0edrg.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068288/rc-hurlingham/OGS01818_aenfza.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068286/rc-hurlingham/OGS01821_jorwhj.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068755/rc-hurlingham/OGS01867_vgmaeb.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754068290/rc-hurlingham/IMG_3048_z0edrg.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1754069088/rc-hurlingham/IMG_3498_l61mhg.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1754069129/rc-hurlingham/OGS01501_qilwbz.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1754069144/rc-hurlingham/OGS01536_zfu9hq.jpg",

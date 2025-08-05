@@ -3,15 +3,15 @@ import { Input } from "@/components/ui/input";
 
 export default function Subscribe() {
  return (
-  <main className="flex-1 py-32 md:py-48 font-montserrat">
-   <div className="max-w-2xl mx-auto p-4">
-    <h1 className="relative z-10 text-lg md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground text-center font-raleway font-bold">
+  <main className="flex-1 py-[20vmin] font-montserrat">
+   <div className="max-w-2xl w-4/5 mx-auto space-y-8 p-8">
+    <h1 className="relative z-10 text-3xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground text-center font-raleway font-bold">
      Subscribe to our newsletter
      <sup>
-      <span className="text-xs text-blue-600">(Coming soon)</span>
+      <span className="text-[0.6rem] md:text-xs">(Coming soon)</span>
      </sup>
     </h1>
-    <p className=" max-w-lg mx-auto my-2 text-sm md:text-lg font-montserrat text-center relative z-10">
+    <p className=" text-sm md:text-lg font-montserrat text-center relative z-10">
      Get the latest news and updates from our club. We will send you an email
      when we launch.
     </p>
@@ -22,7 +22,7 @@ export default function Subscribe() {
      <Input
       type="email"
       placeholder="hello@rotaract.co.ke"
-      className="w-full mt-4 relative z-10"
+      className="w-full relative z-10"
      />
      <Button type="submit" size={"lg"}>
       Subscribe

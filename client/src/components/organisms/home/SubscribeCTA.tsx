@@ -6,7 +6,7 @@ export default function SubscribeCTA() {
   <main className="py-32">
    <section className=" w-full container mx-auto">
     <div className="text-center space-y-4">
-     <h2 className="xl:text-6xl/none text-3xl font-bold sm:text-5xl tracking-tight">
+     <h2 className="xl:text-6xl/none text-3xl font-semibold sm:text-5xl tracking-tight font-raleway">
       Subscribe to our newsletter
      </h2>
      <p className="text-xl text-muted-foreground pt-1">
