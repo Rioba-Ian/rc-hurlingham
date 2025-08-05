@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import Footer from "@/components/molecules/Footer";
+import { Header } from "@/components/molecules/Header";
 
 export const metadata: Metadata = {
  title: "Rotaract Club of Hurlingham",
@@ -31,7 +33,11 @@ export default function RootLayout({
      enableSystem
      disableTransitionOnChange
     >
-     {children}
+     <div className="flex flex-col min-h-screen">
+      <Header />
+      {children}
+      <Footer />
+     </div>
     </ThemeProvider>
    </body>
   </html>

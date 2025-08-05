@@ -7,6 +7,7 @@ import ClubLogo from "@/assets/club_logo.png";
 import ThemeSwitch from "./ThemeSwitch";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
  { name: "Home", href: "/" },
@@ -27,6 +28,8 @@ export const Header = () => {
   window.addEventListener("scroll", handleScroll);
   return () => window.removeEventListener("scroll", handleScroll);
  }, []);
+
+ const pathname = usePathname();
 
  return (
   <header>
@@ -72,9 +75,15 @@ export const Header = () => {
          <li key={index}>
           <Link
            href={item.href}
-           className={`${
-            isScrolled ? "text-neutral-900" : "text-white"
-           }  hover:text-accent-foreground  dark:text-white block duration-150`}
+           className={`
+            ${
+             pathname !== "/" && !isScrolled
+              ? "dark:text-neutral-900 text-neutral-900"
+              : ""
+            }
+            ${
+             isScrolled ? "text-neutral-900" : "text-white"
+            }  hover:text-accent-foreground  dark:text-white block duration-150`}
           >
            <span>{item.name}</span>
           </Link>

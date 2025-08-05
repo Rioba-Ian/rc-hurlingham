@@ -146,14 +146,15 @@ const AboutCarousel = () => {
       alt="Rotaract"
       width={200}
       height={200}
-      className="top-16 left-0 absolute w-full scale-150 text-white"
+      className="top-10 md:top-16 left-0 absolute w-full scale-150 text-white"
      />
     </div>
     <div className="relative w-full">
-     <p className="font-raleway text-sm md:text-lg">
+     <p className="font-raleway text-sm md:text-lg w-4/5 mx-auto space-y-4 md:space-y-8">
       RYLA (Rotary Youth Leadership Awards) is an intensive leadership
       experience where young people develop skills as leaders in their
       communities, workplaces, and organizations.
+      <br />
       <br />
       Through a combination of presentations, activities, and challenges,
       participants explore leadership fundamentals, learn from experienced
@@ -164,7 +165,7 @@ const AboutCarousel = () => {
       alt="Rotaract"
       width={120}
       height={120}
-      className="-top-1/2 -left-[40%] absolute"
+      className="-top-1/4 md:-top-1/2 -left-[50%] md:-left-[40%] absolute"
      />
     </div>
    </div>
