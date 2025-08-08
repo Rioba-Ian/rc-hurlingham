@@ -54,6 +54,31 @@ export async function GET(request: NextRequest) {
 
   await db.execute(`COMMIT`);
 
+  // Send subscriber to Kit API
+  try {
+   const kitResponse = await fetch("https://api.kit.com/v4/subscribers", {
+    method: "POST",
+    headers: {
+     "X-Kit-Api-Key": process.env.KIT_API_KEY_V4!,
+     "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+     email_address: email,
+    }),
+   });
+
+   if (!kitResponse.ok) {
+    console.error(
+     "Failed to send subscriber to Kit:",
+     await kitResponse.text()
+    );
+   } else {
+    console.log("Successfully sent subscriber to Kit");
+   }
+  } catch (kitError) {
+   console.error("Error sending subscriber to Kit:", kitError);
+  }
+
   // Redirect to success page
   return NextResponse.redirect(new URL("/subscribe/success", request.url));
  } catch (err) {

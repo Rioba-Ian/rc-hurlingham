@@ -11,13 +11,14 @@ const raleway = Raleway({
 
 export function ImagesSliderDemo() {
  const images = [
-  "https://res.cloudinary.com/drxurk7lu/image/upload/q_auto,f_auto/v1754068288/rc-hurlingham/OGS01818_aenfza.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/q_auto,f_auto/v1754068286/rc-hurlingham/OGS01821_jorwhj.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/q_auto,f_auto/v1754068755/rc-hurlingham/OGS01867_vgmaeb.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/q_auto,f_auto/v1754068290/rc-hurlingham/IMG_3048_z0edrg.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/q_auto,f_auto/v1754069088/rc-hurlingham/IMG_3498_l61mhg.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/q_auto,f_auto/v1754069129/rc-hurlingham/OGS01501_qilwbz.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/q_auto,f_auto/v1754069144/rc-hurlingham/OGS01536_zfu9hq.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669664/rc-hurlingham/hero_compressed/IMG_3048_1_v7plsn.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669667/rc-hurlingham/hero_compressed/OGS01867_1_m7pufk.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669670/rc-hurlingham/hero_compressed/OGS01821_1_dldokh.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669670/rc-hurlingham/hero_compressed/OGS01818_1_g0xd75.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669671/rc-hurlingham/hero_compressed/IMG_3498_1_d2w1lp.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669674/rc-hurlingham/hero_compressed/IMG_3687_1_hn2ugx.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669665/rc-hurlingham/hero_compressed/OGS01536_1_zbm4wv.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669665/rc-hurlingham/hero_compressed/OGS01501_1_dawtxb.jpg",
  ];
  return (
   <ImagesSlider className="h-[40rem] md:h-[48rem]" images={images}>
