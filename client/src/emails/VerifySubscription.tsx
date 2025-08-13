@@ -27,7 +27,7 @@ const VerifySubscriptionEmail = ({
   <Html>
    <Tailwind>
     <Head>
-     <title>Your Free Guide Is Here</title>
+     <title>Confirm your newsletter subscription to RAC Hurlingham</title>
      <Font
       fontFamily="Inter"
       fallbackFontFamily="Arial"
@@ -39,15 +39,15 @@ const VerifySubscriptionEmail = ({
       fontStyle="normal"
      />
     </Head>
-    <Preview>Confirm your newsletter subscription to RC Hurlingham</Preview>
+    <Preview>Confirm your newsletter subscription to RAC Hurlingham</Preview>
     <Body className="bg-white">
-     <Preview>Confirm your newsletter subscription to RC Hurlingham</Preview>
+     <Preview>Confirm your newsletter subscription to RAC Hurlingham</Preview>
      <Container className="bg-white">
       <Img
        src={`https://res.cloudinary.com/drxurk7lu/image/upload/v1752770026/small_Rotaract_Logo_EN_21_4_1_54fb915610.png`}
        width="240"
        height="120"
-       alt="RC Hurlingham"
+       alt="RAC Hurlingham"
        className="my-4 mx-auto"
       />
 
@@ -58,7 +58,7 @@ const VerifySubscriptionEmail = ({
       <Section className="bg-gray-100 rounded-lg p-4">
        <Text className="text-lg">Hello!</Text>
        <Text className="text-lg">
-        Thank you for subscribing to the RC Hurlingham newsletter. To complete
+        Thank you for subscribing to the RAC Hurlingham newsletter. To complete
         your subscription, please click the button below to verify your email
         address.
        </Text>
@@ -77,7 +77,7 @@ const VerifySubscriptionEmail = ({
       </Text>
 
       <Text className="text-lg">
-       RC Hurlingham Club • Stay connected with our latest updates and events
+       RAC Hurlingham Club • Stay connected with our latest updates and events
       </Text>
      </Container>
     </Body>
