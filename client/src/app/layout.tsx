@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/molecules/Footer";
 import { Header } from "@/components/molecules/Header";
+import Script from "next/script";
 
 export const metadata: Metadata = {
  title: "Rotaract Club of Hurlingham",
@@ -26,6 +27,11 @@ export default function RootLayout({
 }>) {
  return (
   <html lang="en" suppressHydrationWarning>
+   <Script
+    async
+    src="http://rotaract-hurlingham-umami-ff33f4-49-12-198-51.traefik.me/script.js"
+    data-website-id="7f7d36e8-a8ba-412f-b26c-ebefa375baa5"
+   />
    <body className={`antialiased`}>
     <ThemeProvider
      attribute="class"
