@@ -40,6 +40,13 @@ Strapi gives you many possible deployment options for your project including [St
 yarn strapi deploy
 ```
 
+## 📦 Docker
+
+```
+docker build -t rac-hurlingham-cms .
+docker run -p 1337:1337 rac-hurlingham-cms
+```
+
 ## 📚 Learn more
 
 - [Resource center](https://strapi.io/resource-center) - Strapi resource center.
