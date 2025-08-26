@@ -47,6 +47,18 @@ docker build -t rac-hurlingham-cms .
 docker run -p 1337:1337 rac-hurlingham-cms
 ```
 
+Pulling the image from Docker Hub:
+
+```
+docker pull rac-hurlingham-cms
+```
+
+If you're using other platform specific docker images, you can pull the image from Docker Hub using the following command:
+
+```
+docker run --platform linux/amd64 --env-file ./.env riobaian/rac-hurlingham-cms:9c44733
+```
+
 The admin panel can be accessed at `http://localhost:1337/admin` (logged in with the credentials `admin:admin`).
 
 ## 📚 Learn more
