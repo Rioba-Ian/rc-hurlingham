@@ -31,13 +31,12 @@ jobs:
      with:
       registry: docker.io
       username: ${{ secrets.DOCKERHUB_USERNAME }}
-      password: ${{ secrets.DOCKER_PASSWORD }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}
 
    - name: Extract metadata
      id: meta
      uses: docker/metadata-action@v5
      with:
-      # Set this secret to your Docker Hub namespace (user or org)
       images: ${{ secrets.DOCKERHUB_USERNAME }}/rac-hurlingham-cms
       tags: |
        type=ref,event=branch

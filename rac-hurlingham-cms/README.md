@@ -47,6 +47,8 @@ docker build -t rac-hurlingham-cms .
 docker run -p 1337:1337 rac-hurlingham-cms
 ```
 
+The admin panel can be accessed at `http://localhost:1337/admin` (logged in with the credentials `admin:admin`).
+
 ## 📚 Learn more
 
 - [Resource center](https://strapi.io/resource-center) - Strapi resource center.
