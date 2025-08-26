@@ -41,12 +41,16 @@ export default function SubscribeUser() {
   setMessage(null);
 
   try {
-   const response = await fetch("/api/newsletter/subscribe", {
+   const response = await fetch("/v4/subscribers", {
     method: "POST",
     headers: {
      "Content-Type": "application/json",
+     "X-Kit-Api-Key": process.env.KIT_API_KEY_V4 || "",
     },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({
+     email_address: email,
+     state: "inactive", // Important for double opt-in
+    }),
    });
 
    const data = await response.json();

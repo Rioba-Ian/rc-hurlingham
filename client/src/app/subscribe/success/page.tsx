@@ -29,8 +29,8 @@ export default function SubscribeSuccess() {
      </h1>
 
      <p className="text-lg md:text-xl font-montserrat relative z-10 text-muted-foreground">
-      Thank you for subscribing to the RC Hurlingham newsletter. You&apos;re now
-      part of our community!
+      Thank you for subscribing to the RAC Hurlingham newsletter. You&apos;re
+      now part of our community!
      </p>
 
      <div className="space-y-4 text-sm md:text-base text-muted-foreground">
