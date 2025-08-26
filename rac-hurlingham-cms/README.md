@@ -53,7 +53,7 @@ Pulling the image from Docker Hub:
 docker pull rac-hurlingham-cms
 ```
 
-If you're using other platform specific docker images, you can pull the image from Docker Hub using the following command:
+Because the image is built on a different platform, you need to specify the platform when running the container.
 
 ```
 docker run --platform linux/amd64 --env-file ./.env riobaian/rac-hurlingham-cms:9c44733
