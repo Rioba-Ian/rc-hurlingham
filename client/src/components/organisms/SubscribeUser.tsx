@@ -41,7 +41,7 @@ export default function SubscribeUser() {
   setMessage(null);
 
   try {
-   const response = await fetch("/v4/subscribers", {
+   const response = await fetch("https://api.kit.com/v4/subscribers", {
     method: "POST",
     headers: {
      "Content-Type": "application/json",
