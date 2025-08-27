@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { subscribe } from "@/app/subscribe/actions";
 
 export default function SubscribeUser() {
  const [email, setEmail] = useState("");
@@ -41,21 +42,9 @@ export default function SubscribeUser() {
   setMessage(null);
 
   try {
-   const response = await fetch("https://api.kit.com/v4/subscribers", {
-    method: "POST",
-    headers: {
-     "Content-Type": "application/json",
-     "X-Kit-Api-Key": process.env.KIT_API_KEY_V4 || "",
-    },
-    body: JSON.stringify({
-     email_address: email,
-     state: "inactive", // Important for double opt-in
-    }),
-   });
+   const data = await subscribe(email);
 
-   const data = await response.json();
-
-   if (response.ok) {
+   if (data && data?.subscriber?.id) {
     setMessage({
      type: "success",
      text:
@@ -65,10 +54,11 @@ export default function SubscribeUser() {
    } else {
     setMessage({
      type: "error",
-     text: data.error || "Something went wrong. Please try again.",
+     text: data?.error || "Something went wrong. Please try again.",
     });
    }
   } catch (error) {
+   console.error("Subscription error:", error);
    setMessage({
     type: "error",
     text: "Network error. Please check your connection and try again.",
