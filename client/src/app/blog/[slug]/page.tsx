@@ -2,12 +2,13 @@ import Image from "next/image";
 import { fetchArticleBySlug, getMediaUrl } from "@/lib/cms";
 import type { Metadata } from "next";
 
-type PageProps = { params: { slug: string } };
-
 export async function generateMetadata({
  params,
-}: PageProps): Promise<Metadata> {
- const { data } = await fetchArticleBySlug(params.slug);
+}: {
+ params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+ const { slug } = await params;
+ const { data } = await fetchArticleBySlug(slug);
  const title = data?.title ?? "Article";
  const description = data?.description ?? undefined;
  const coverUrl = getMediaUrl(data?.cover?.url ?? null) ?? undefined;
@@ -29,8 +30,13 @@ export async function generateMetadata({
  };
 }
 
-export default async function ArticlePage({ params }: PageProps) {
- const { data } = await fetchArticleBySlug(params.slug);
+export default async function ArticlePage({
+ params,
+}: {
+ params: Promise<{ slug: string }>;
+}) {
+ const { slug } = await params;
+ const { data } = await fetchArticleBySlug(slug);
  if (!data) {
   return <div className="max-w-3xl mx-auto p-6">Article not found.</div>;
  }
