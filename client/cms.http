@@ -1,0 +1,7 @@
+@baseUrl = {{$dotenv STRAPI_CMS_URI}}
+@token = {{$dotenv STRAPI_CMS_API_KEY}}
+
+### Get all articles
+GET {{baseUrl}}/api/articles?populate=*
+Authorization: Bearer {{token}}
+Accept: application/json

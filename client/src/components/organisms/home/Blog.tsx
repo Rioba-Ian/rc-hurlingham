@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { getBlogPosts } from "@/app/actions";
 
 // Sample blog articles data
 const blogArticles = [
@@ -48,7 +49,11 @@ const blogArticles = [
  },
 ];
 
-export default function Blog() {
+export default async function Blog() {
+ const blogPosts = await getBlogPosts();
+
+ console.log(blogPosts);
+
  return (
   <section className="py-16 px-4 max-w-7xl mx-auto">
    <div className="container mx-auto flex flex-col items-center gap-16 lg:px-16 ">

@@ -3,10 +3,14 @@ name: Build Docker images
 on:
  push:
   branches: ["main"]
+  paths:
+   - "rac-hurlingham-cms/**"
 
 jobs:
  build-and-push-dockerfile-image:
   runs-on: ubuntu-latest
+
+  if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
   steps:
    - name: Checkout repository

@@ -11,14 +11,15 @@ const raleway = Raleway({
 
 export function ImagesSliderDemo() {
  const images = [
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669664/rc-hurlingham/hero_compressed/IMG_3048_1_v7plsn.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669667/rc-hurlingham/hero_compressed/OGS01867_1_m7pufk.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669670/rc-hurlingham/hero_compressed/OGS01821_1_dldokh.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669670/rc-hurlingham/hero_compressed/OGS01818_1_g0xd75.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669671/rc-hurlingham/hero_compressed/IMG_3498_1_d2w1lp.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669674/rc-hurlingham/hero_compressed/IMG_3687_1_hn2ugx.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669665/rc-hurlingham/hero_compressed/OGS01536_1_zbm4wv.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1754669665/rc-hurlingham/hero_compressed/OGS01501_1_dawtxb.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373080/rc-hurlingham/hero_compressed/compressed_2/compressed-images%20%281%29/OGS01821_1_dldokh_du0p2r.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373079/rc-hurlingham/hero_compressed/compressed_2/compressed-images%20%281%29/OGS01867_1_m7pufk_gqim3s.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373079/rc-hurlingham/hero_compressed/compressed_2/compressed-images%20%281%29/OGS01818_1_g0xd75_qjewcy.jpg",
+
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/OGS01501_1_dawtxb_yx03l0.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/OGS01536_1_zbm4wv_axrxbv.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/IMG_3498_1_d2w1lp_qiwybi.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/IMG_3048_1_v7plsn_yzd7rw.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/IMG_3687_1_hn2ugx_ghrnau.jpg",
  ];
  return (
   <ImagesSlider className="h-[40rem] md:h-[48rem]" images={images}>
