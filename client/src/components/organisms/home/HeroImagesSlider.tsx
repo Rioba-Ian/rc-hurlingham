@@ -37,10 +37,16 @@ export function ImagesSliderDemo() {
     }}
     className="z-50 w-2/3 flex flex-col justify-center items-center"
    >
-    <motion.p
-     className={`${raleway.className} "font-medium text-2xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-6"`}
+    <h1
+     className={`font-raleway font-bold text-4xl md:text-7xl bg-clip-text text-center text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-8`}
     >
-     Welcome to the home of the fun and community
+     Rotaract Club of Hurlingham
+    </h1>
+    <motion.p
+     className={`${raleway.className} "font-medium text-sm w-4/5 md:text-xl text-center bg-clip-text text-neutral-200 py-6"`}
+    >
+     A vibrant community of young adults making a difference through service,
+     leadership, and meaningful connections across borders.
     </motion.p>
     <button className="my-2 px-4 py-2 backdrop-blur-sm border bg-cranberry/20 border-cranberry text-cranberry-foreground mx-auto text-center rounded-full relative mt-4">
      <span>Learn more →</span>
@@ -50,3 +56,23 @@ export function ImagesSliderDemo() {
   </ImagesSlider>
  );
 }
+
+/*
+<motion.div
+    initial={{ opacity: 0, y: -80 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 2.5 }}
+    className="z-50 w-2/3 flex flex-col justify-center items-center text-center px-4"
+  >
+    <h1 className="font-bold text-4xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-4">
+      Rotaract: Leadership, Service, Global Friendship
+    </h1>
+    <p className="max-w-2xl font-medium text-lg md:text-2xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300 mb-6">
+      A vibrant global network of young adults—aged 18 and over—making a difference through community service projects, leadership development, and meaningful connections across borders.
+    </p>
+    <button className="my-2 px-6 py-3 backdrop-blur-sm border bg-cranberry/20 border-cranberry text-cranberry-foreground rounded-full hover:bg-cranberry/30 transition">
+      <span>Explore Our Mission →</span>
+      <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
+    </button>
+  </motion.div>
+*/

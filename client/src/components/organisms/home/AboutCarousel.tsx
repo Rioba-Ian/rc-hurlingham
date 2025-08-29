@@ -3,6 +3,8 @@ import Image from "next/image";
 import underline from "@/assets/underline.svg";
 import thinkinkPerson from "@/assets/face_thinking_person.svg";
 import { Gallery } from "./Gallery";
+import Sponsors from "./Sponsors";
+import Mission from "./Mission";
 
 const demoData = {
  title: "Projects",
@@ -135,8 +137,8 @@ const cards = [
 
 const AboutCarousel = () => {
  return (
-  <div className="bg-cranberry-foreground dark:bg-neutral-800">
-   <div className="py-16 md:py-32 flex flex-col items-center justify-center text-neutral-600 dark:text-neutral-200 gap-8 md:gap-16 w-1/2 mx-auto text-center relative">
+  <div className="bg-cranberry-foreground dark:bg-neutral-800 space-y-8 md:space-y-16  mx-auto px-4">
+   <div className="py-8 md:py-16 flex flex-col items-center justify-center text-neutral-600 dark:text-neutral-200 gap-8 md:gap-16 w-1/2 mx-auto text-center relative">
     <div className="relative">
      <h2 className="font-semibold text-2xl md:text-6xl font-raleway">
       What is Rotaract?
@@ -151,14 +153,17 @@ const AboutCarousel = () => {
     </div>
     <div className="relative w-full">
      <p className="font-raleway text-sm md:text-lg w-4/5 mx-auto space-y-4 md:space-y-8">
-      RYLA (Rotary Youth Leadership Awards) is an intensive leadership
-      experience where young people develop skills as leaders in their
-      communities, workplaces, and organizations.
+      Rotaract means{" "}
+      <span className="text-cranberry font-medium">Rotary in Action</span>
+      . A Rotaract club is a Rotary-sponsored organization bringing together
+      young adults ages 18-30 to take action in their communities and
+      internationally to develop their leadership and professional skills.
       <br />
       <br />
-      Through a combination of presentations, activities, and challenges,
-      participants explore leadership fundamentals, learn from experienced
-      facilitators, and develop personal leadership styles.
+      Rotaract is an inclusive group of young leaders dedicated to developing
+      themselves as world citizens while promoting meaningful{" "}
+      <span className="text-cranberry font-medium">Service Above Self</span> in
+      our community, in our nation, and around the world.
      </p>
      <Image
       src={thinkinkPerson}
@@ -168,6 +173,8 @@ const AboutCarousel = () => {
       className="-top-1/4 md:-top-1/2 -left-[50%] md:-left-[40%] absolute"
      />
     </div>
+    <Sponsors />
+    <Mission />
    </div>
    <Gallery {...demoData} />
   </div>
