@@ -87,6 +87,7 @@
  /* custom colors */
  --color-cranberry: var(--cranberry);
  --color-cranberry-foreground: var(--cranberry-foreground);
+ --color-secondary-yellow: var(--secondary-yellow);
 
  /* fonts */
  --font-raleway: var(--font-raleway);
@@ -131,6 +132,7 @@
 
  --cranberry: oklch(0.704 0.191 22.216);
  --cranberry-foreground: oklch(0.985 0 0);
+ --secondary-yellow: oklch(0.789 0.162 73.986);
 
  --font-raleway: "Raleway", sans-serif;
  --font-montserrat: "Montserrat", sans-serif;

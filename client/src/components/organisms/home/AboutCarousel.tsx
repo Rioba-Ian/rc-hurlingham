@@ -174,8 +174,8 @@ const AboutCarousel = () => {
      />
     </div>
     <Sponsors />
-    <Mission />
    </div>
+   <Mission />
    <Gallery {...demoData} />
   </div>
  );
