@@ -6,21 +6,13 @@ import Image from "next/image";
 // Define sections as a constant
 const sections = [
  {
-  title: "Services",
+  title: "Links & Services",
   links: [
-   { name: "1on1 Coaching", href: "#" },
-   { name: "Company Review", href: "#" },
-   { name: "Accounts Review", href: "#" },
-   { name: "HR Consulting", href: "#" },
-   { name: "SEO Optimisation", href: "#" },
-  ],
- },
- {
-  title: "Company",
-  links: [
-   { name: "About", href: "#" },
-   { name: "Meet the Team", href: "#" },
-   { name: "Accounts Review", href: "#" },
+   { name: "Training", href: "#" },
+   { name: "Events", href: "#" },
+   { name: "Blog", href: "#" },
+   { name: "Contact", href: "#" },
+   { name: "About Us", href: "#" },
   ],
  },
  {
@@ -28,25 +20,33 @@ const sections = [
   links: [
    { name: "Contact", href: "#" },
    { name: "FAQs", href: "#" },
-   { name: "Live Chat", href: "#" },
+   { name: "Privacy Policy", href: "#" },
   ],
  },
  {
   title: "Legal",
   links: [
    { name: "Accessibility", href: "#" },
-   { name: "Returns Policy", href: "#" },
-   { name: "Refund Policy", href: "#" },
-   { name: "Hiring Statistics", href: "#" },
+   { name: "Ethics & Governance", href: "#" },
+   { name: "Privacy Policy", href: "#" },
+   { name: "Terms of Service", href: "#" },
   ],
  },
 ];
 
 // Define social links as a constant
 const socialLinks = [
- { icon: Twitter, name: "Twitter", href: "#" },
- { icon: Instagram, name: "Instagram", href: "#" },
- { icon: Facebook, name: "Facebook", href: "#" },
+ { icon: Twitter, name: "Twitter", href: "https://x.com/rac_hurlingham" },
+ {
+  icon: Instagram,
+  name: "Instagram",
+  href: "https://www.instagram.com/rac_hurlingham/",
+ },
+ {
+  icon: Facebook,
+  name: "Facebook",
+  href: "https://www.facebook.com/RacHurlingham/",
+ },
 ];
 
 export default function Footer() {
