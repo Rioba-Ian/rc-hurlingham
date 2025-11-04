@@ -52,8 +52,8 @@ const Mission = () => {
      <h4 className="font-semibold text-xl md:text-2xl lg:text-3xl font-raleway text-neutral-800 dark:text-neutral-200">
       What Rotaract Does
      </h4>
-     <div className="grid grid-cols-1 md:grid-cols-2 place-items-center gap-4 md:gap-6">
-      {rotaractObjectives.map((objective, index) => (
+     <div className="grid grid-cols-1 md:grid-cols-2 place-content-center-safe place-items-center gap-4 md:gap-6">
+      {rotaractObjectives?.map((objective, index) => (
        <div
         key={objective.id}
         className="flex flex-col items-start space-y-3 p-4 md:p-8 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all duration-300 group"

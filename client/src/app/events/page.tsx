@@ -1,3 +1,9 @@
+import ComingSoon from "@/components/molecules/ComingSoon";
+
 export default function Events() {
- return <div>Events</div>;
+ return (
+  <main className="flex flex-col">
+   <ComingSoon />
+  </main>
+ );
 }
