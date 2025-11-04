@@ -76,10 +76,10 @@ export const Header = () => {
            className={cn(
             "block duration-150 hover:text-accent-foreground",
             isScrolled
-             ? "text-neutral-900"
+             ? "text-neutral-900 dark:text-white"
              : isHome
                ? "text-white dark:text-white"
-               : "text-neutral-900"
+               : "text-neutral-900 dark:text-white"
            )}
           >
            <span>{item.name}</span>
