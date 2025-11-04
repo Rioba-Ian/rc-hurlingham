@@ -30,6 +30,7 @@ export const Header = () => {
  }, []);
 
  const pathname = usePathname();
+ const isHome = pathname === "/";
 
  return (
   <header>
@@ -72,15 +73,14 @@ export const Header = () => {
          <li key={index}>
           <Link
            href={item.href}
-           className={`
-            ${
-             pathname !== "/" && !isScrolled
-              ? "dark:text-neutral-900 text-neutral-900"
-              : ""
-            }
-            ${
-             isScrolled ? "text-neutral-900" : "text-white"
-            }  hover:text-accent-foreground  dark:text-white block duration-150`}
+           className={cn(
+            "block duration-150 hover:text-accent-foreground",
+            isScrolled
+             ? "text-neutral-900"
+             : isHome
+               ? "text-white dark:text-white"
+               : "text-neutral-900"
+           )}
           >
            <span>{item.name}</span>
           </Link>
