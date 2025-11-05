@@ -19,6 +19,6 @@ COPY . .
 RUN chown -R node:node /opt/app
 USER node
 RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
-RUN npm run build
+RUN npm run build -- --debug
 EXPOSE 1337
 CMD ["npm", "start"]
