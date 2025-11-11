@@ -6,6 +6,13 @@ import { Card, CardContent, CardHeader } from "@/components/molecules/card";
 export default async function BlogPage() {
  const { data } = await fetchArticles();
 
+
+ if (!data) {
+	 return {
+		 notFound: true
+		}
+	}
+
  return (
   <section className="py-20 md:py-32 px-4 max-w-7xl mx-auto">
    <div className="container mx-auto flex flex-col gap-10 lg:px-16">
