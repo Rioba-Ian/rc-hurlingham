@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { PiMicrosoftOutlookLogo } from "react-icons/pi";
+import { SiGmail } from "react-icons/si";
 
 export default function SubscribeUser() {
   const [email, setEmail] = useState("");
@@ -84,11 +86,38 @@ export default function SubscribeUser() {
         <div
           className={`p-4 rounded-lg text-center ${
             message.type === "success"
-              ? "bg-green-50 border border-green-200 text-green-800"
+              ? "bg-secondary-yellow dark:bg-secondary-yellow/70 text-neutral-900 dark:text-neutral-50"
               : "bg-red-50 border border-red-200 text-red-800"
           }`}
         >
           {message.text}
+          {message.type === "success" && (
+            <div className="mt-4 space-y-3">
+              <p className="text-sm text-neutral-900 dark:text-neutral-50">
+                Check your email inbox now! Can&apos;t find it? Quick access:
+              </p>
+              <div className="flex justify-center items-center space-x-4">
+                <a
+                  href="https://mail.google.com/mail/u/0/#search/from%3Arotaract+OR+subject%3Averification+OR+subject%3Aconfirm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 px-3 py-2   rounded-lg  transition-colors duration-200"
+                >
+                  <SiGmail className="w-5 h-5" />
+                  <span className="text-sm font-medium">Gmail</span>
+                </a>
+                <a
+                  href="https://outlook.live.com/mail/0/search?q=from%3Arotaract%20OR%20subject%3Averification%20OR%20subject%3Aconfirm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 px-3 py-2   rounded-lg  transition-colors duration-200"
+                >
+                  <PiMicrosoftOutlookLogo className="w-5 h-5" />
+                  <span className="text-sm font-medium">Outlook</span>
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
