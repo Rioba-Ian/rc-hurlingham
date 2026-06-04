@@ -1,6 +1,5 @@
-import { Twitter, Instagram, Facebook } from "lucide-react";
+import { FaXTwitter, FaInstagram, FaFacebookF } from "react-icons/fa6";
 import Link from "next/link";
-import { Rocket } from "lucide-react";
 import Image from "next/image";
 
 // Define sections as a constant
@@ -36,14 +35,14 @@ const sections = [
 
 // Define social links as a constant
 const socialLinks = [
- { icon: Twitter, name: "Twitter", href: "https://x.com/rac_hurlingham" },
+ { icon: FaXTwitter, name: "Twitter", href: "https://x.com/rac_hurlingham" },
  {
-  icon: Instagram,
+  icon: FaInstagram,
   name: "Instagram",
   href: "https://www.instagram.com/rac_hurlingham/",
  },
  {
-  icon: Facebook,
+  icon: FaFacebookF,
   name: "Facebook",
   href: "https://www.facebook.com/RacHurlingham/",
  },

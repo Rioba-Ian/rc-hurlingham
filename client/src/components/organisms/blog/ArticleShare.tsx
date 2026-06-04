@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Twitter, Facebook, Link2, Check } from "lucide-react";
+import { Link2, Check } from "lucide-react";
+import { FaXTwitter, FaFacebookF } from "react-icons/fa6";
 
 const iconBtn =
  "flex size-9 items-center justify-center rounded-full border border-border text-neutral-600 transition-colors hover:border-cranberry hover:text-cranberry dark:text-neutral-300";
@@ -42,7 +43,7 @@ const ArticleShare = ({ title }: { title: string }) => {
      }
      className={iconBtn}
     >
-     <Twitter className="size-4" />
+     <FaXTwitter className="size-4" />
     </button>
     <button
      type="button"
@@ -56,7 +57,7 @@ const ArticleShare = ({ title }: { title: string }) => {
      }
      className={iconBtn}
     >
-     <Facebook className="size-4" />
+     <FaFacebookF className="size-4" />
     </button>
     <button
      type="button"
