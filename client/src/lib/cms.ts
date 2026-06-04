@@ -44,11 +44,7 @@ export async function fetchArticles(): Promise<StrapiListResponse<Article>> {
    };
   }
 
-  const json = await response.json();
-
-  console.log("Fetched articles successfully", json);
-
-  return json;
+  return response.json();
  } catch (error) {
   console.error("Error fetching articles:", error);
   // Return empty data instead of throwing during build
@@ -118,10 +114,7 @@ export async function fetchEvents() {
    };
   }
 
-  const json = await response.json();
-  console.log("Fetched events successfully", json);
-
-  return json;
+  return response.json();
  } catch (error) {
   console.error("Error fetching events:", error);
   return {

@@ -164,6 +164,8 @@
 
 */
 
+import type { BlocksContent } from "@strapi/blocks-react-renderer";
+
 export interface Article {
  id: number;
  documentId: string;
@@ -173,20 +175,11 @@ export interface Article {
  createdAt: string;
  updatedAt: string;
  publishedAt: string;
- content: Content[];
+ content: BlocksContent;
  cover?: Cover | null;
  author?: Author | null;
  category: Category | null;
  blocks: [];
-}
-
-export interface Content {
- type: string;
- level?: number;
- children: {
-  text: string;
-  type: string;
- }[];
 }
 
 export interface Cover {
