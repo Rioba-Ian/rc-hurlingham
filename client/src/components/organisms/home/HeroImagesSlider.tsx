@@ -11,11 +11,12 @@ const raleway = Raleway({
 
 export function ImagesSliderDemo() {
  const images = [
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1780562548/rc-hurlingham/peace_summit_large_bj9mov.webp",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373080/rc-hurlingham/hero_compressed/compressed_2/compressed-images%20%281%29/OGS01821_1_dldokh_du0p2r.jpg",
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373079/rc-hurlingham/hero_compressed/compressed_2/compressed-images%20%281%29/OGS01867_1_m7pufk_gqim3s.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1780561182/rc-hurlingham/DSC02283_ckumta.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373079/rc-hurlingham/hero_compressed/compressed_2/compressed-images%20%281%29/OGS01818_1_g0xd75_qjewcy.jpg",
 
-  "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/OGS01501_1_dawtxb_yx03l0.jpg",
+  "https://res.cloudinary.com/drxurk7lu/image/upload/v1780561157/rc-hurlingham/peace_summit_webp_cxstht.webp",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/OGS01536_1_zbm4wv_axrxbv.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/IMG_3498_1_d2w1lp_qiwybi.jpg",
   "https://res.cloudinary.com/drxurk7lu/image/upload/v1756373057/rc-hurlingham/hero_compressed/compressed_2/compressed-images/IMG_3048_1_v7plsn_yzd7rw.jpg",

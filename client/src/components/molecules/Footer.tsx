@@ -66,8 +66,8 @@ export default function Footer() {
        <span className="text-xl font-medium">Rotaract Club of Hurlingham</span>
       </Link>
       <p className="mt-4 max-w-xs text-muted-foreground">
-       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non
-       cupiditate quae nam molestias.
+       A community of young professionals serving Nairobi through leadership,
+       friendship, and Service Above Self.
       </p>
 
       {/* Social Links */}

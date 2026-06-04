@@ -150,6 +150,26 @@ export const ImagesSlider = (props: ImagesSliderProps) => {
      />
     </AnimatePresence>
    )}
+
+   {areImagesLoaded && images.length > 1 && (
+    <div className="absolute bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2">
+     {images.map((_, index) => (
+      <button
+       key={index}
+       type="button"
+       onClick={() => setCurrentIndex(index)}
+       aria-label={`Go to slide ${index + 1}`}
+       aria-current={currentIndex === index}
+       className={cn(
+        "h-2 rounded-full transition-all duration-300",
+        currentIndex === index
+         ? "w-6 bg-cranberry"
+         : "w-2 bg-white/50 hover:bg-white/80 dark:bg-neutral-500/60 dark:hover:bg-neutral-400"
+       )}
+      />
+     ))}
+    </div>
+   )}
   </div>
  );
 };

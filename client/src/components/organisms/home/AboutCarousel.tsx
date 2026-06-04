@@ -9,13 +9,13 @@ import Mission from "./Mission";
 const demoData = {
  title: "Projects",
  description:
-  "Discover how leading companies and developers are leveraging modern web technologies to build exceptional digital experiences. These case studies showcase real-world applications and success stories.",
+  "Discover how our members take action — from community drives to leadership training and beyond.",
  items: [
   {
    id: "1",
    title: "Community",
    description:
-    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+    "Building stronger neighbourhoods through hands-on service projects.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301754/rc-hurlingham/504302524_18392626003188488_375231453140831669_n_ozbcoy.jpg",
@@ -23,8 +23,7 @@ const demoData = {
   {
    id: "2",
    title: "Leadership",
-   description:
-    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+   description: "Growing the next generation of confident, capable young leaders.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301832/rc-hurlingham/524594164_18101375320601621_8044475636033552825_n_oqbs7q.jpg",
@@ -32,8 +31,7 @@ const demoData = {
   {
    id: "3",
    title: "Mentorship",
-   description:
-    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+   description: "Pairing members with mentors for personal and professional growth.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301779/rc-hurlingham/525756364_18392626075188488_1218777187996823509_n_vrsgif.jpg",
@@ -41,8 +39,7 @@ const demoData = {
   {
    id: "4",
    title: "Peace & Conflict Resolution",
-   description:
-    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+   description: "Promoting dialogue and understanding across communities.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302184/rc-hurlingham/489041455_17898809637163805_7384207761434184886_n_vwbezw.jpg",
@@ -50,8 +47,7 @@ const demoData = {
   {
    id: "5",
    title: "Training",
-   description:
-    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+   description: "Workshops and skills sessions that empower members year-round.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302686/rc-hurlingham/470254329_593849653194104_7572726715906509254_n_x6cfqi.jpg",
@@ -59,17 +55,15 @@ const demoData = {
   {
    id: "6",
    title: "Service Above Self",
-   description:
-    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-   href: "https://nextjs.org",
+   description: "Living our motto through impact that reaches beyond ourselves.",
+   href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302686/rc-hurlingham/469720245_1094096229119568_3431651376604334017_n_jvpc7h.jpg",
   },
   {
    id: "7",
    title: "Mental Health",
-   description:
-    "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+   description: "Open conversations that break stigma and support wellbeing.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302649/rc-hurlingham/478740699_18086184880601621_4672046275343247977_n_dqilmx.jpg",

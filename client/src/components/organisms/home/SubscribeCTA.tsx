@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function SubscribeCTA() {
  return (
-  <main className="py-32">
+  <main className="py-16">
    <section className=" w-full container mx-auto">
     <div className="text-center space-y-4">
      <h2 className="xl:text-6xl/none text-3xl font-semibold sm:text-5xl tracking-tight font-raleway">

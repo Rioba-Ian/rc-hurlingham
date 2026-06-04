@@ -159,12 +159,12 @@ const Gallery = ({
            alt={item.title}
            className="absolute h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105 group-hover:blur-sm"
           />
-          <div className="absolute inset-0 h-full bg-[linear-gradient(hsl(var(--primary)/0),hsl(var(--primary)/0.4),hsl(var(--primary)/0.8)_100%)] mix-blend-multiply" />
-          <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-neutral-950 dark:text-neutral-100  md:p-8">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(210,32,98,0),rgba(210,32,98,0.4),rgba(210,32,98,0.85))] mix-blend-multiply" />
+          <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-6 text-white md:p-8">
            <div className="mb-2 pt-4 text-xl font-extrabold md:mb-3 md:pt-4 lg:pt-4">
             {item.title}
            </div>
-           <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9 group-hover:bg-cranberry">
+           <div className="mb-8 line-clamp-2 md:mb-12 lg:mb-9">
             {item.description}
            </div>
            <div className="flex items-center text-xs">

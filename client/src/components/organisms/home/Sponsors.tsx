@@ -9,7 +9,7 @@ const Sponsors = () => {
   <section className="container mx-auto">
    <div className="flex flex-col items-center justify-center space-y-4 md:space-y-8">
     <h2 className="font-semibold text-2xl md:text-6xl font-raleway">
-     Sponsors
+     Sponsors & Partners
     </h2>
     <div className="flex items-center justify-center gap-8 md:gap-16">
      <Link
@@ -35,6 +35,22 @@ const Sponsors = () => {
       <Image
        src={RotaryLogo}
        alt="Rotary Club of MBS"
+       width={200}
+       height={200}
+       className="mx-auto"
+      />
+     </Link>
+     <Link
+      href={"https://www.instagram.com/rac_tuk/"}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-full"
+     >
+      <Image
+       src={
+        "https://res.cloudinary.com/drxurk7lu/image/upload/v1780563684/rc-hurlingham/output_efv3pw.png"
+       }
+       alt="Rotaract Club of Technical University of Kenya"
        width={200}
        height={200}
        className="mx-auto"

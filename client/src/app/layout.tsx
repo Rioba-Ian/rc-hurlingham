@@ -1,9 +1,24 @@
 import type { Metadata } from "next";
+import { Raleway, Montserrat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/molecules/Footer";
 import { Header } from "@/components/molecules/Header";
 import Script from "next/script";
+
+const raleway = Raleway({
+ subsets: ["latin"],
+ weight: ["400", "500", "600", "700", "800"],
+ variable: "--font-raleway",
+ display: "swap",
+});
+
+const montserrat = Montserrat({
+ subsets: ["latin"],
+ weight: ["400", "500", "600", "700"],
+ variable: "--font-montserrat",
+ display: "swap",
+});
 
 export const metadata: Metadata = {
  title: "Rotaract Club of Hurlingham",
@@ -26,7 +41,11 @@ export default function RootLayout({
  children: React.ReactNode;
 }>) {
  return (
-  <html lang="en" suppressHydrationWarning>
+  <html
+   lang="en"
+   suppressHydrationWarning
+   className={`${raleway.variable} ${montserrat.variable}`}
+  >
    <Script
     async
     src="http://rotaract-hurlingham-umami-ff33f4-49-12-198-51.traefik.me/script.js"
