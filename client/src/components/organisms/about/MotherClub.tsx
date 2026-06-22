@@ -12,7 +12,7 @@ const MotherClub = () => {
      <Image
       src={rotaryHurlinghamLogo}
       alt="Rotary Club of Hurlingham"
-      className="w-full max-w-[320px] object-contain"
+      className="h-auto w-full max-w-[320px] object-contain"
      />
     </div>
     <div>

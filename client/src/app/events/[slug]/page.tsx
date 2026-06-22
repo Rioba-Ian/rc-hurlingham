@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, MapPin } from "lucide-react";
 import type { Metadata } from "next";
-import { fetchEventBySlug, getMediaUrl } from "@/lib/cms";
+import { fetchEventBySlug, coverUrl } from "@/lib/cms";
 import { formatDate } from "@/lib/blog";
 import { isPast } from "@/lib/events";
 import DateBadge from "@/components/molecules/DateBadge";
@@ -18,7 +18,7 @@ export async function generateMetadata({
  const { data } = await fetchEventBySlug(slug);
  const title = data?.title ?? "Event";
  const description = data?.description ?? undefined;
- const coverUrl = getMediaUrl(data?.cover?.url ?? null) ?? undefined;
+ const ogImage = coverUrl(data?.cover, "large") ?? undefined;
 
  return {
   title,
@@ -26,7 +26,14 @@ export async function generateMetadata({
   openGraph: {
    title,
    description,
-   images: coverUrl ? [{ url: coverUrl }] : undefined,
+   type: "article",
+   images: ogImage ? [{ url: ogImage, alt: title }] : undefined,
+  },
+  twitter: {
+   card: ogImage ? "summary_large_image" : "summary",
+   title,
+   description,
+   images: ogImage ? [ogImage] : undefined,
   },
  };
 }
@@ -46,7 +53,7 @@ export default async function EventPage({
   );
  }
 
- const coverUrl = getMediaUrl(data.cover?.url);
+ const heroSrc = coverUrl(data.cover, "large");
  const hasContent = Array.isArray(data.content) && data.content.length > 0;
  const past = isPast(data.date);
  const time = new Date(data.date).toLocaleTimeString("en-GB", {
@@ -58,9 +65,9 @@ export default async function EventPage({
   <article className="pb-24">
    {/* Cover hero */}
    <div className="relative h-[min(52vh,460px)] overflow-hidden">
-    {coverUrl ? (
+    {heroSrc ? (
      <Image
-      src={coverUrl}
+      src={heroSrc}
       alt={data.title}
       fill
       priority

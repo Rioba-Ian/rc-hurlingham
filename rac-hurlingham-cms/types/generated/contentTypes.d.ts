@@ -513,6 +513,36 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBoardOfDirectorBoardOfDirector
+  extends Struct.SingleTypeSchema {
+  collectionName: 'board_of_directors';
+  info: {
+    displayName: 'Board of Director';
+    pluralName: 'board-of-directors';
+    singularName: 'board-of-director';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    directors: Schema.Attribute.DynamicZone<['shared.media']>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::board-of-director.board-of-director'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
@@ -557,7 +587,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   };
   attributes: {
     authors: Schema.Attribute.Relation<'manyToMany', 'api::author.author'>;
-    content: Schema.Attribute.Component<'shared.rich-text', false>;
+    content: Schema.Attribute.Blocks;
     cover: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -1125,6 +1155,7 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
+      'api::board-of-director.board-of-director': ApiBoardOfDirectorBoardOfDirector;
       'api::category.category': ApiCategoryCategory;
       'api::event.event': ApiEventEvent;
       'api::global.global': ApiGlobalGlobal;

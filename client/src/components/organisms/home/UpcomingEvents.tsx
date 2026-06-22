@@ -1,36 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
-import { fetchEvents, getMediaUrl } from "@/lib/cms";
+import { fetchEvents, coverUrl } from "@/lib/cms";
 import { formatDate } from "@/lib/blog";
 import { splitByDate } from "@/lib/events";
 import DateBadge from "@/components/molecules/DateBadge";
 import type { Event } from "@/types/cms";
 
 const UpcomingEventRow = ({ event }: { event: Event }) => {
- const coverUrl = getMediaUrl(event.cover?.url);
+ const src = coverUrl(event.cover, "thumbnail");
  return (
   <Link
    href={`/events/${event.slug}`}
-   className="group flex items-center gap-[18px] rounded-[14px] border border-border bg-white p-3.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cranberry/35 hover:shadow-lg dark:bg-neutral-900"
+   className="group flex items-center gap-3 rounded-[14px] border border-border bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cranberry/35 hover:shadow-lg sm:gap-[18px] sm:p-3.5 dark:bg-neutral-900"
   >
-   <DateBadge iso={event.date} tinted className="w-16 py-2.5" />
-   {coverUrl && (
-    <div className="relative hidden h-16 w-[72px] shrink-0 overflow-hidden rounded-[10px] sm:block">
-     <Image src={coverUrl} alt="" fill sizes="72px" className="object-cover" />
+   {src ? (
+    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl sm:h-16 sm:w-16">
+     <Image src={src} alt="" fill sizes="64px" className="object-cover" />
     </div>
+   ) : (
+    <DateBadge iso={event.date} tinted className="w-14 py-2 sm:w-16 sm:py-2.5" />
    )}
    <div className="min-w-0 flex-1">
-    <div className="truncate font-raleway text-[17px] font-semibold text-neutral-800 dark:text-neutral-100">
+    <div className="line-clamp-2 font-raleway text-[15px] font-semibold leading-snug text-neutral-800 sm:truncate sm:text-[17px] dark:text-neutral-100">
      {event.title}
     </div>
-    <div className="mt-1.5 flex gap-4 font-montserrat text-[13px] text-neutral-600 dark:text-neutral-400">
+    <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 font-montserrat text-[13px] text-neutral-600 dark:text-neutral-400">
      <span className="inline-flex items-center gap-1.5">
-      <Calendar className="size-3.5" /> {formatDate(event.date)}
+      <Calendar className="size-3.5 shrink-0" /> {formatDate(event.date)}
      </span>
      {event.location && (
-      <span className="hidden items-center gap-1.5 truncate sm:inline-flex">
-       <MapPin className="size-3.5 shrink-0" /> {event.location}
+      <span className="inline-flex min-w-0 items-center gap-1.5">
+       <MapPin className="size-3.5 shrink-0" />{" "}
+       <span className="truncate">{event.location}</span>
       </span>
      )}
     </div>
@@ -60,6 +62,7 @@ export default async function UpcomingEvents() {
       </h2>
       <p className="mt-3 font-montserrat text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
        Join us at our next gathering — service projects, trainings and socials.
+       Or even experiences our members will attend in the community.
        There&apos;s always a seat at the table.
       </p>
      </div>

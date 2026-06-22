@@ -11,7 +11,7 @@ const Sponsors = () => {
     <h2 className="font-semibold text-2xl md:text-6xl font-raleway">
      Sponsors & Partners
     </h2>
-    <div className="flex items-center justify-center gap-8 md:gap-16">
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-16">
      <Link
       href={"https://rotaryclubofhurlinghamnairobi.org/"}
       target="_blank"

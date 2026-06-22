@@ -37,16 +37,14 @@
       "target": "api::author.author",
       "inversedBy": "events"
     },
-    "content": {
-      "type": "component",
-      "component": "shared.rich-text",
-      "repeatable": false
-    },
     "Date": {
       "type": "datetime"
     },
     "Location": {
       "type": "string"
+    },
+    "content": {
+      "type": "blocks"
     }
   }
 }

@@ -23,7 +23,8 @@ const demoData = {
   {
    id: "2",
    title: "Leadership",
-   description: "Growing the next generation of confident, capable young leaders.",
+   description:
+    "Growing the next generation of confident, capable young leaders.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301832/rc-hurlingham/524594164_18101375320601621_8044475636033552825_n_oqbs7q.jpg",
@@ -31,7 +32,8 @@ const demoData = {
   {
    id: "3",
    title: "Mentorship",
-   description: "Pairing members with mentors for personal and professional growth.",
+   description:
+    "Pairing members with mentors for personal and professional growth.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301779/rc-hurlingham/525756364_18392626075188488_1218777187996823509_n_vrsgif.jpg",
@@ -47,7 +49,8 @@ const demoData = {
   {
    id: "5",
    title: "Training",
-   description: "Workshops and skills sessions that empower members year-round.",
+   description:
+    "Workshops and skills sessions that empower members year-round.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302686/rc-hurlingham/470254329_593849653194104_7572726715906509254_n_x6cfqi.jpg",
@@ -55,7 +58,8 @@ const demoData = {
   {
    id: "6",
    title: "Service Above Self",
-   description: "Living our motto through impact that reaches beyond ourselves.",
+   description:
+    "Living our motto through impact that reaches beyond ourselves.",
    href: "#",
    image:
     "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302686/rc-hurlingham/469720245_1094096229119568_3431651376604334017_n_jvpc7h.jpg",
@@ -142,11 +146,11 @@ const AboutCarousel = () => {
       alt="Rotaract"
       width={200}
       height={200}
-      className="top-10 md:top-16 left-0 absolute w-full scale-150 text-white"
+      className="top-18 sm:top-10 md:top-16 left-0 absolute h-auto w-full scale-150 text-white"
      />
     </div>
     <div className="relative w-full">
-     <p className="font-raleway text-sm md:text-lg w-4/5 mx-auto space-y-4 md:space-y-8">
+     <p className="font-raleway text-sm md:text-lg sm:w-4/5 mx-auto space-y-4 md:space-y-8">
       Rotaract means{" "}
       <span className="text-cranberry font-medium">Rotary in Action</span>
       . A Rotaract club is a Rotary-sponsored organization bringing together
@@ -164,7 +168,7 @@ const AboutCarousel = () => {
       alt="Rotaract"
       width={120}
       height={120}
-      className="-top-1/4 md:-top-1/2 -left-[50%] md:-left-[40%] absolute"
+      className="-top-[100px] scale-50 md:scale-100  md:-top-1/2 -left-[60%] sm:-left-[50%] md:-left-[40%] absolute h-auto w-[120px]"
      />
     </div>
     <Sponsors />

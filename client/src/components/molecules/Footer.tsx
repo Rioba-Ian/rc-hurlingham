@@ -109,7 +109,8 @@ export default function Footer() {
      </div>
     </div>
     <p className="text-xs text-muted-foreground">
-     &copy; 2025. Rotaract Club of Hurlingham. All rights reserved.
+     &copy; {new Date().getFullYear()}. Rotaract Club of Hurlingham. All rights
+     reserved.
     </p>
    </div>
   </footer>

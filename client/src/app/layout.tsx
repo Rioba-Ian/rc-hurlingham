@@ -21,6 +21,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+ metadataBase: new URL(
+  process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
+ ),
  title: "Rotaract Club of Hurlingham",
  description:
   "Rotaract Club of Hurlingham is a community service club for young professionals in Nairobi, Kenya.",

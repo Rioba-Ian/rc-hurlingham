@@ -36,7 +36,7 @@ const SectionHeading = ({
       src={underline}
       alt=""
       aria-hidden="true"
-      className="pointer-events-none absolute -bottom-3.5 left-[8%] w-[70%]"
+      className="pointer-events-none absolute -bottom-3.5 left-[8%] h-auto w-[70%]"
      />
     )}
    </h2>

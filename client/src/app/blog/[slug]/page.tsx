@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { fetchArticleBySlug, fetchArticles, getMediaUrl } from "@/lib/cms";
+import {
+ fetchArticleBySlug,
+ fetchArticles,
+ coverUrl as pickCover,
+} from "@/lib/cms";
 import { formatDate, readingTime } from "@/lib/blog";
 import Avatar from "@/components/molecules/Avatar";
 import RichText from "@/components/molecules/RichText";
@@ -18,7 +22,7 @@ export async function generateMetadata({
  const { data } = await fetchArticleBySlug(slug);
  const title = data?.title ?? "Article";
  const description = data?.description ?? undefined;
- const coverUrl = getMediaUrl(data?.cover?.url ?? null) ?? undefined;
+ const coverUrl = pickCover(data?.cover, "large") ?? undefined;
 
  return {
   title,
@@ -26,7 +30,8 @@ export async function generateMetadata({
   openGraph: {
    title,
    description,
-   images: coverUrl ? [{ url: coverUrl }] : undefined,
+   type: "article",
+   images: coverUrl ? [{ url: coverUrl, alt: title }] : undefined,
   },
   twitter: {
    card: coverUrl ? "summary_large_image" : "summary",
@@ -51,7 +56,7 @@ export default async function ArticlePage({
    </div>
   );
  }
- const coverUrl = getMediaUrl(data.cover?.url);
+ const coverUrl = pickCover(data.cover, "large");
  const hasContent = Array.isArray(data.content) && data.content.length > 0;
 
  // Related: other articles (prefer same category), newest first, max 3.

@@ -7,7 +7,9 @@ export interface SharedMedia extends Struct.ComponentSchema {
     icon: 'file-video';
   };
   attributes: {
+    commitee: Schema.Attribute.String;
     file: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    name: Schema.Attribute.String;
   };
 }
 
@@ -30,9 +32,7 @@ export interface SharedRichText extends Struct.ComponentSchema {
     displayName: 'Rich text';
     icon: 'align-justify';
   };
-  attributes: {
-    body: Schema.Attribute.RichText;
-  };
+  attributes: {};
 }
 
 export interface SharedSeo extends Struct.ComponentSchema {

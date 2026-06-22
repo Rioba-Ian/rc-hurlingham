@@ -37,7 +37,7 @@ const Heritage = () => {
     src={punctuation}
     alt=""
     aria-hidden="true"
-    className="pointer-events-none absolute -left-2.5 top-10 hidden h-[220px] -rotate-12 opacity-[0.12] md:block"
+    className="pointer-events-none absolute -left-2.5 top-10 hidden h-[220px] w-auto -rotate-12 opacity-[0.12] md:block"
    />
    <div className="relative mx-auto max-w-[1080px]">
     <SectionHeading
@@ -62,7 +62,7 @@ const Heritage = () => {
          src={starburst}
          alt=""
          aria-hidden="true"
-         className="pointer-events-none absolute -top-3.5 left-[57%] z-[2] hidden w-12 lg:block"
+         className="pointer-events-none absolute -top-3.5 left-[57%] z-[2] hidden h-auto w-12 lg:block"
         />
        )}
        <div className="relative z-[1] mx-auto mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-cranberry text-white">

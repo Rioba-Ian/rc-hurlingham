@@ -39,6 +39,9 @@
       "target": "api::author.author",
       "inversedBy": "articles"
     },
+    "content": {
+      "type": "blocks"
+    },
     "category": {
       "type": "relation",
       "relation": "manyToOne",
@@ -53,9 +56,6 @@
         "shared.rich-text",
         "shared.slider"
       ]
-    },
-    "content": {
-      "type": "blocks"
     }
   }
 }

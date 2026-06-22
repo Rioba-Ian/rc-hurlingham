@@ -25,7 +25,7 @@ const JoinCTA = () => {
       src={arrowCurved}
       alt=""
       aria-hidden="true"
-      className="pointer-events-none absolute -top-2 left-[calc(100%+6px)] hidden w-[52px] -scale-x-100 rotate-[12deg] opacity-90 brightness-0 invert md:block"
+      className="pointer-events-none absolute -top-2 left-[calc(100%+6px)] hidden h-auto w-[52px] -scale-x-100 rotate-[12deg] opacity-90 brightness-0 invert md:block"
      />
     </div>
    </div>

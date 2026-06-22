@@ -1,9 +1,26 @@
 import {
  Article,
+ Cover,
  Event,
  StrapiListResponse,
  StrapiSingleResponse,
 } from "@/types/cms";
+
+type MediaSize = "thumbnail" | "small" | "medium" | "large";
+
+/**
+ * Resolve a cover's URL, preferring a responsive `formats` size when available
+ * and falling back to the original upload. Use a small size for thumbnails and
+ * a larger one for hero/banner images to avoid shipping oversized media.
+ */
+export function coverUrl(
+ cover?: Cover | null,
+ size?: MediaSize,
+): string | null {
+ if (!cover) return null;
+ const sized = size ? cover.formats?.[size]?.url : undefined;
+ return getMediaUrl(sized ?? cover.url);
+}
 
 const CMS_URL = process.env.STRAPI_CMS_URI as string;
 const CMS_TOKEN = process.env.STRAPI_CMS_API_KEY as string;
@@ -92,6 +109,30 @@ export async function fetchArticleBySlug(
  }
 }
 
+/**
+ * The events collection uses capitalized field names (`Date`, `Location`).
+ * Normalize to the lowercase `Event` shape the UI uses (defensive: also
+ * accepts already-lowercase fields in case the collection is renamed later).
+ */
+type RawEvent = Omit<Event, "date" | "location" | "cover"> & {
+ Date?: string;
+ Location?: string | null;
+ date?: string;
+ location?: string | null;
+ // The events collection stores cover as a repeatable media field (array).
+ cover?: Cover | Cover[] | null;
+};
+
+function normalizeEvent(e: RawEvent): Event {
+ const cover = Array.isArray(e.cover) ? (e.cover[0] ?? null) : (e.cover ?? null);
+ return {
+  ...(e as unknown as Event),
+  date: e.Date ?? e.date ?? "",
+  location: e.Location ?? e.location ?? null,
+  cover,
+ };
+}
+
 export async function fetchEvents(): Promise<StrapiListResponse<Event>> {
  const empty: StrapiListResponse<Event> = {
   data: [],
@@ -117,7 +158,8 @@ export async function fetchEvents(): Promise<StrapiListResponse<Event>> {
    return empty;
   }
 
-  return response.json();
+  const json = (await response.json()) as StrapiListResponse<RawEvent>;
+  return { data: (json.data ?? []).map(normalizeEvent), meta: json.meta };
  } catch (error) {
   console.error("Error fetching events:", error);
   return empty;
@@ -146,8 +188,9 @@ export async function fetchEventBySlug(
    return { data: null };
   }
 
-  const list = (await response.json()) as StrapiListResponse<Event>;
-  return { data: list.data[0] ?? null };
+  const list = (await response.json()) as StrapiListResponse<RawEvent>;
+  const raw = list.data[0];
+  return { data: raw ? normalizeEvent(raw) : null };
  } catch (error) {
   console.error("Error fetching event:", error);
   return { data: null };

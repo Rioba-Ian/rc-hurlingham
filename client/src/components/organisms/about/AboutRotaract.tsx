@@ -93,7 +93,7 @@ const AboutRotaract = () => {
      src={thinkingPerson}
      alt=""
      aria-hidden="true"
-     className="pointer-events-none absolute -top-7 right-2 hidden w-[92px] rotate-[8deg] opacity-95 md:block"
+     className="pointer-events-none absolute -top-7 right-2 hidden h-auto w-[92px] rotate-[8deg] opacity-95 md:block"
     />
     <div className="max-w-[720px]">
      <div className="mb-3.5 font-montserrat text-[13px] font-semibold uppercase tracking-[0.08em] text-cranberry">
@@ -105,7 +105,7 @@ const AboutRotaract = () => {
        src={underline}
        alt=""
        aria-hidden="true"
-       className="pointer-events-none absolute -bottom-3.5 left-[4%] w-[70%]"
+       className="pointer-events-none absolute -bottom-3.5 left-[4%] h-auto w-[70%]"
       />
      </h2>
      <p className="mt-5 font-montserrat text-base leading-relaxed text-neutral-600 dark:text-neutral-300">

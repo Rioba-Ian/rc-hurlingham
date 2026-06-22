@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import type { Event } from "@/types/cms";
-import { getMediaUrl } from "@/lib/cms";
+import { coverUrl } from "@/lib/cms";
 import DateBadge from "./DateBadge";
 
 /** Strip emoji/pictographs the way the design does for clean card excerpts. */
@@ -18,16 +18,16 @@ interface EventCardProps {
 
 /** Grid card for an event, used on /events. Links to the detail page. */
 const EventCard = ({ event, past = false }: EventCardProps) => {
- const coverUrl = getMediaUrl(event.cover?.url);
+ const src = coverUrl(event.cover, "small");
  return (
   <Link
    href={`/events/${event.slug}`}
    className="group block overflow-hidden rounded-[14px] border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl dark:bg-neutral-900"
   >
    <div className="relative aspect-[16/10] overflow-hidden">
-    {coverUrl ? (
+    {src ? (
      <Image
-      src={coverUrl}
+      src={src}
       alt={event.title}
       fill
       sizes="(max-width: 768px) 100vw, 360px"

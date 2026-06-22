@@ -17,7 +17,7 @@ const OurStory = () => {
        src={underline}
        alt=""
        aria-hidden="true"
-       className="pointer-events-none absolute -bottom-3.5 left-[2%] w-[62%]"
+       className="pointer-events-none absolute -bottom-3.5 left-[2%] h-auto w-[62%]"
       />
      </h2>
      <p className="mt-5 font-montserrat text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
@@ -39,7 +39,7 @@ const OurStory = () => {
       src={sparkles}
       alt=""
       aria-hidden="true"
-      className="absolute -right-3.5 -top-[22px] z-[2] hidden w-[62px] md:block"
+      className="absolute -right-3.5 -top-[22px] z-[2] hidden h-auto w-[62px] md:block"
      />
      <div className="overflow-hidden rounded-[14px] shadow-md">
       <Image

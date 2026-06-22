@@ -2,20 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import type { Event } from "@/types/cms";
-import { getMediaUrl } from "@/lib/cms";
+import { coverUrl } from "@/lib/cms";
 import { formatDate } from "@/lib/blog";
 
 /** Large featured event banner shown at the top of the Upcoming tab. */
 const FeaturedEvent = ({ event }: { event: Event }) => {
- const coverUrl = getMediaUrl(event.cover?.url);
+ const src = coverUrl(event.cover, "large");
  return (
   <Link
    href={`/events/${event.slug}`}
    className="group relative flex min-h-[420px] items-end overflow-hidden rounded-[18px]"
   >
-   {coverUrl ? (
+   {src ? (
     <Image
-     src={coverUrl}
+     src={src}
      alt={event.title}
      fill
      sizes="(max-width: 1140px) 100vw, 1080px"
