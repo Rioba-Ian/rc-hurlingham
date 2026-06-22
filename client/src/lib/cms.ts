@@ -1,4 +1,9 @@
-import { Article, StrapiListResponse, StrapiSingleResponse } from "@/types/cms";
+import {
+ Article,
+ Event,
+ StrapiListResponse,
+ StrapiSingleResponse,
+} from "@/types/cms";
 
 const CMS_URL = process.env.STRAPI_CMS_URI as string;
 const CMS_TOKEN = process.env.STRAPI_CMS_API_KEY as string;
@@ -87,14 +92,15 @@ export async function fetchArticleBySlug(
  }
 }
 
-export async function fetchEvents() {
- // Implement similar to fetchArticles, but for events
+export async function fetchEvents(): Promise<StrapiListResponse<Event>> {
+ const empty: StrapiListResponse<Event> = {
+  data: [],
+  meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
+ };
+
  if (!CMS_URL || !CMS_TOKEN) {
-  console.warn("CMS configuration missing, returning empty articles list");
-  return {
-   data: [],
-   meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
-  };
+  console.warn("CMS configuration missing, returning empty events list");
+  return empty;
  }
 
  try {
@@ -108,18 +114,42 @@ export async function fetchEvents() {
    console.error(
     `Failed to fetch events: ${response.status} - ${response.statusText}`,
    );
-   return {
-    data: [],
-    meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
-   };
+   return empty;
   }
 
   return response.json();
  } catch (error) {
   console.error("Error fetching events:", error);
-  return {
-   data: [],
-   meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
-  };
+  return empty;
+ }
+}
+
+export async function fetchEventBySlug(
+ slug: string,
+): Promise<StrapiSingleResponse<Event>> {
+ if (!CMS_URL || !CMS_TOKEN) {
+  console.warn("CMS configuration missing, returning null event");
+  return { data: null };
+ }
+
+ try {
+  const url = `${CMS_URL}/api/events?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`;
+  const response = await fetch(url, {
+   headers: getHeaders(),
+   next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+   console.error(
+    `Failed to fetch event: ${response.status} - ${response.statusText}`,
+   );
+   return { data: null };
+  }
+
+  const list = (await response.json()) as StrapiListResponse<Event>;
+  return { data: list.data[0] ?? null };
+ } catch (error) {
+  console.error("Error fetching event:", error);
+  return { data: null };
  }
 }

@@ -41,6 +41,12 @@
       "type": "component",
       "component": "shared.rich-text",
       "repeatable": false
+    },
+    "Date": {
+      "type": "datetime"
+    },
+    "Location": {
+      "type": "string"
     }
   }
 }

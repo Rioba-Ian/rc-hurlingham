@@ -182,6 +182,21 @@ export interface Article {
  blocks: [];
 }
 
+export interface Event {
+ id: number;
+ documentId: string;
+ title: string;
+ slug: string;
+ description?: string | null;
+ date: string;
+ location?: string | null;
+ content: BlocksContent;
+ cover?: Cover | null;
+ createdAt: string;
+ updatedAt: string;
+ publishedAt: string;
+}
+
 export interface Cover {
  id: number;
  documentId: string;
