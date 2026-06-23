@@ -1,6 +1,7 @@
 import {
  Article,
  Cover,
+ Director,
  Event,
  StrapiListResponse,
  StrapiSingleResponse,
@@ -194,5 +195,37 @@ export async function fetchEventBySlug(
  } catch (error) {
   console.error("Error fetching event:", error);
   return { data: null };
+ }
+}
+
+export async function fetchDirectors(): Promise<StrapiListResponse<Director>> {
+ const empty: StrapiListResponse<Director> = {
+  data: [],
+  meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
+ };
+
+ if (!CMS_URL || !CMS_TOKEN) {
+  console.warn("CMS configuration missing, returning empty directors list");
+  return empty;
+ }
+
+ try {
+  const url = `${CMS_URL}/api/directors?populate=*`;
+  const response = await fetch(url, {
+   headers: getHeaders(),
+   next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+   console.error(
+    `Failed to fetch directors: ${response.status} - ${response.statusText}`,
+   );
+   return empty;
+  }
+
+  return response.json();
+ } catch (error) {
+  console.error("Error fetching directors:", error);
+  return empty;
  }
 }

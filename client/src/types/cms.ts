@@ -192,6 +192,18 @@ export interface Event {
  location?: string | null;
  content: BlocksContent;
  cover?: Cover | null;
+ eventphoto?: Cover[] | null;
+ createdAt: string;
+ updatedAt: string;
+ publishedAt: string;
+}
+
+export interface Director {
+ id: number;
+ documentId: string;
+ name: string;
+ role: string;
+ photo?: Cover | null;
  createdAt: string;
  updatedAt: string;
  publishedAt: string;

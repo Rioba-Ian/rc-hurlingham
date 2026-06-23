@@ -8,6 +8,7 @@ import { isPast } from "@/lib/events";
 import DateBadge from "@/components/molecules/DateBadge";
 import RichText from "@/components/molecules/RichText";
 import ArticleShare from "@/components/organisms/blog/ArticleShare";
+import EventGallery from "@/components/organisms/events/EventGallery";
 
 export async function generateMetadata({
  params,
@@ -56,6 +57,16 @@ export default async function EventPage({
  const heroSrc = coverUrl(data.cover, "large");
  const hasContent = Array.isArray(data.content) && data.content.length > 0;
  const past = isPast(data.date);
+
+ const galleryPhotos = (data.eventphoto ?? [])
+  .map((p) => ({
+   thumb: coverUrl(p, "small"),
+   full: coverUrl(p, "large"),
+   alt: p.alternativeText || data.title,
+  }))
+  .filter((p): p is { thumb: string; full: string; alt: string } =>
+   Boolean(p.thumb && p.full),
+  );
  const time = new Date(data.date).toLocaleTimeString("en-GB", {
   hour: "2-digit",
   minute: "2-digit",
@@ -146,6 +157,7 @@ export default async function EventPage({
    </div>
 
    <div className="mx-auto max-w-[860px] px-6">
+    <EventGallery photos={galleryPhotos} />
     <ArticleShare title={data.title} />
    </div>
   </article>
