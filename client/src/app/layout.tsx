@@ -32,6 +32,11 @@ export const metadata: Metadata = {
   "Rotaract Club of Hurlingham is a community service club for young professionals in Nairobi, Kenya.",
  applicationName: "Rotaract Club of Hurlingham",
  keywords: [
+  "Rotaract Club",
+  "RAC Hurlingham",
+  "Rotary Hurlingham",
+  "RAC Hurlingham Nairobi",
+  "Rotaract Club of Hurlingham Nairobi UpperHill",
   "Rotaract",
   "Rotaract Club of Hurlingham",
   "Rotary",
