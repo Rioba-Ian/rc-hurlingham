@@ -4,7 +4,7 @@ import SectionHeading from "@/components/molecules/SectionHeading";
 import EventsList from "@/components/organisms/events/EventsList";
 
 export const metadata: Metadata = {
- title: "Events | Rotaract Club of Hurlingham",
+ title: "Events",
  description:
   "Service projects, trainings and socials from the Rotaract Club of Hurlingham. Join us — there's always a seat at the table.",
  openGraph: {

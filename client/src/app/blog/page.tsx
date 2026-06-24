@@ -4,7 +4,7 @@ import SectionHeading from "@/components/molecules/SectionHeading";
 import BlogList from "@/components/organisms/blog/BlogList";
 
 export const metadata: Metadata = {
- title: "Blog | Rotaract Club of Hurlingham",
+ title: "Blog",
  description:
   "News, project recaps and insights from the Rotaract Club of Hurlingham community.",
  openGraph: {

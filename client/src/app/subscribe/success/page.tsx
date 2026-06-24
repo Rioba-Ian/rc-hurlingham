@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+ title: "Subscription Confirmed",
+ description:
+  "Your Rotaract Club of Hurlingham newsletter subscription is confirmed.",
+ robots: { index: false, follow: true },
+};
 
 export default function SubscribeSuccess() {
  return (

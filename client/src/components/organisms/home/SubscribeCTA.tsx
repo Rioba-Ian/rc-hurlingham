@@ -9,7 +9,7 @@ export default function SubscribeCTA() {
      <h2 className="xl:text-6xl/none text-3xl font-semibold sm:text-5xl tracking-tight font-raleway">
       Subscribe to our newsletter
      </h2>
-     <p className="text-xl text-muted-foreground pt-1">
+     <p className="text-base md:text-xl text-muted-foreground pt-1">
       Get the latest news and updates from our club.
      </p>
     </div>

@@ -560,6 +560,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -567,6 +568,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    project: Schema.Attribute.Relation<'manyToOne', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID;
     updatedAt: Schema.Attribute.DateTime;
@@ -636,8 +638,48 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Location: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    rsvpLink: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGalleryAlbumGalleryAlbum
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'gallery_albums';
+  info: {
+    displayName: 'Gallery Album';
+    pluralName: 'gallery-albums';
+    singularName: 'gallery-album';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    briefCaption: Schema.Attribute.RichText;
+    coverImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    eventTitle: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gallery-album.gallery-album'
+    > &
+      Schema.Attribute.Private;
+    Photos: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'eventTitle'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -670,6 +712,85 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
     siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomeHeroGalleryHomeHeroGallery
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'home_hero_galleries';
+  info: {
+    displayName: 'Home Hero Gallery';
+    pluralName: 'home-hero-galleries';
+    singularName: 'home-hero-gallery';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-hero-gallery.home-hero-gallery'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProjectProject extends Struct.CollectionTypeSchema {
+  collectionName: 'projects';
+  info: {
+    displayName: 'Project';
+    pluralName: 'projects';
+    singularName: 'project';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
+    coverImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text;
+    Gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::project.project'
+    > &
+      Schema.Attribute.Private;
+    Location: Schema.Attribute.String;
+    projectStatus: Schema.Attribute.Enumeration<
+      ['Upcoming', 'Ongoing', 'Completed']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1193,7 +1314,10 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::director.director': ApiDirectorDirector;
       'api::event.event': ApiEventEvent;
+      'api::gallery-album.gallery-album': ApiGalleryAlbumGalleryAlbum;
       'api::global.global': ApiGlobalGlobal;
+      'api::home-hero-gallery.home-hero-gallery': ApiHomeHeroGalleryHomeHeroGallery;
+      'api::project.project': ApiProjectProject;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

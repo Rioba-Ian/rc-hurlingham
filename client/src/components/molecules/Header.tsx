@@ -42,18 +42,18 @@ export const Header = () => {
      className={cn(
       "mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12",
       isScrolled &&
-       "bg-background/20 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5"
+       "bg-background/20 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5",
      )}
     >
-     <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
-      <div className="flex w-full justify-between lg:w-auto">
+     <div className="relative flex flex-wrap items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4">
+      <div className="flex w-full items-center justify-between lg:w-auto">
        <Link href={"/"}>
         <Image
          src={ClubLogo}
          alt="Rotaract Club of Hurlingham Logo"
          width={180}
          height={80}
-         className="inline-block mr-2"
+         className="inline-block mr-2 h-auto w-[120px] lg:w-[180px]"
         />
        </Link>
 
@@ -79,7 +79,7 @@ export const Header = () => {
              ? "text-neutral-900 dark:text-white"
              : isHome
                ? "text-white dark:text-white"
-               : "text-neutral-900 dark:text-white"
+               : "text-neutral-900 dark:text-white",
            )}
           >
            <span>{item.name}</span>
@@ -89,9 +89,9 @@ export const Header = () => {
        </ul>
       </div>
 
-      <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+      <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-4 hidden w-full flex-wrap items-center justify-end space-y-6 rounded-2xl border p-5 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
        <div className="lg:hidden">
-        <ul className="space-y-6 text-base">
+        <ul className="space-y-4 text-sm">
          {menuItems.map((item, index) => (
           <li key={index}>
            <Link

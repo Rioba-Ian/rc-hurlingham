@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import arrowCurved from "@/assets/doodles/arrow-curved.svg";
+import arrowCurved from "@/assets/doodles/rotated-right-arrow-with-broken-line-svgrepo-com.svg";
 
 /* Join CTA: cranberry band. */
 const JoinCTA = () => {
@@ -25,7 +25,7 @@ const JoinCTA = () => {
       src={arrowCurved}
       alt=""
       aria-hidden="true"
-      className="pointer-events-none absolute -top-2 left-[calc(100%+6px)] hidden h-auto w-[52px] -scale-x-100 rotate-[12deg] opacity-90 brightness-0 invert md:block"
+      className="pointer-events-none absolute top-1/2 left-[110%] ml-2 hidden h-auto w-[56px] -translate-y-[75%] -scale-x-150 -rotate-25 opacity-90 brightness-0 invert md:block"
      />
     </div>
    </div>

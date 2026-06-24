@@ -89,10 +89,12 @@ export const Contact2 = ({
      {/* Left Section - Contact Info */}
      <div className="flex max-w-md flex-col justify-between gap-12">
       <div className="space-y-3">
-       <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+       <h1 className="text-3xl md:text-5xl font-bold text-foreground">
         {title}
        </h1>
-       <p className="text-base text-muted-foreground">{description}</p>
+       <p className="text-sm md:text-base text-muted-foreground">
+        {description}
+       </p>
       </div>
 
       {/* Contact Details */}

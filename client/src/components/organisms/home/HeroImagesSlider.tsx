@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 import { ImagesSlider } from "@/components/molecules/images-slider";
 import { Raleway } from "next/font/google";
@@ -39,7 +40,7 @@ export function ImagesSliderDemo() {
     className="z-50 w-2/3 flex flex-col justify-center items-center"
    >
     <h1
-     className={`font-raleway font-bold text-4xl md:text-7xl bg-clip-text text-center text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-8`}
+     className={`font-raleway font-bold text-3xl sm:text-4xl md:text-7xl bg-clip-text text-center text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-8`}
     >
      Rotaract Club of Hurlingham
     </h1>
@@ -49,10 +50,13 @@ export function ImagesSliderDemo() {
      A vibrant community of young adults making a difference through service,
      leadership, and meaningful connections across borders.
     </motion.p>
-    <button className="my-2 px-4 py-2 backdrop-blur-sm border bg-cranberry/20 border-cranberry text-cranberry-foreground mx-auto text-center rounded-full relative mt-4">
+    <Link
+     href="/about"
+     className="my-2 px-4 py-2 backdrop-blur-sm border bg-cranberry/20 border-cranberry text-cranberry-foreground mx-auto text-center rounded-full relative mt-4"
+    >
      <span>Learn more →</span>
      <div className="absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
-    </button>
+    </Link>
    </motion.div>
   </ImagesSlider>
  );

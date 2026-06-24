@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gallery_albums",
+  "info": {
+    "singularName": "gallery-album",
+    "pluralName": "gallery-albums",
+    "displayName": "Gallery Album"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "eventTitle": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "eventTitle"
+    },
+    "date": {
+      "type": "date"
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Photos": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "briefCaption": {
+      "type": "richtext"
+    }
+  }
+}

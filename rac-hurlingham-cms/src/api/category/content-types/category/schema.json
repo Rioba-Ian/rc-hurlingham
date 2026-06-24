@@ -26,6 +26,22 @@
     },
     "description": {
       "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "categories"
     }
   }
 }

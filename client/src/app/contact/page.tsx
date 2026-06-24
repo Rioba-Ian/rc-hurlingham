@@ -1,9 +1,12 @@
 import { Contact2 } from "@/components/molecules/Contact";
 
+const contactDescription =
+ "Get in touch with the Rotaract Club of Hurlingham. We'd love to hear from you about questions, feedback, or collaboration opportunities.";
+
 export const metadata = {
- title: "Contact Us | Rotaract Club of Hurlingham",
- description:
-  "Get in touch with the Rotaract Club of Hurlingham. We'd love to hear from you about questions, feedback, or collaboration opportunities.",
+ title: "Contact Us",
+ description: contactDescription,
+ openGraph: { title: "Contact Us", description: contactDescription },
 };
 
 export default function Contact() {

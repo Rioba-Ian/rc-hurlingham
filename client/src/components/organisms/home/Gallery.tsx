@@ -104,7 +104,7 @@ const Gallery = ({
    <div className="container max-w-screen-lg mb-10 md:mb-20 mx-auto">
     <div className="flex items-end justify-between md:mb-14 lg:mb-16 w-4/5 md:w-full mx-auto">
      <div className="flex flex-col gap-4 max-w-screen-lg w-4/5">
-      <h2 className="text-3xl font-medium md:text-4xl lg:text-5xl font-raleway">
+      <h2 className="text-2xl font-medium sm:text-3xl md:text-4xl lg:text-5xl font-raleway">
        {title}
       </h2>
       <p className="max-w-lg font-raleway text-sm md:text-lg">{description}</p>

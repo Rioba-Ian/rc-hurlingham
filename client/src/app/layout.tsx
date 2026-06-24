@@ -24,9 +24,38 @@ export const metadata: Metadata = {
  metadataBase: new URL(
   process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
  ),
- title: "Rotaract Club of Hurlingham",
+ title: {
+  default: "Rotaract Club of Hurlingham",
+  template: "%s | Rotaract Club of Hurlingham",
+ },
  description:
   "Rotaract Club of Hurlingham is a community service club for young professionals in Nairobi, Kenya.",
+ applicationName: "Rotaract Club of Hurlingham",
+ keywords: [
+  "Rotaract",
+  "Rotaract Club of Hurlingham",
+  "Rotary",
+  "Nairobi",
+  "Kenya",
+  "community service",
+  "youth leadership",
+  "volunteering",
+ ],
+ openGraph: {
+  type: "website",
+  siteName: "Rotaract Club of Hurlingham",
+  locale: "en_KE",
+  title: "Rotaract Club of Hurlingham",
+  description:
+   "A community of young professionals in Nairobi serving through leadership, friendship, and Service Above Self.",
+ },
+ twitter: {
+  card: "summary_large_image",
+  title: "Rotaract Club of Hurlingham",
+  description:
+   "A community of young professionals in Nairobi serving through leadership, friendship, and Service Above Self.",
+ },
+ robots: { index: true, follow: true },
  icons: {
   icon: [
    { url: "/icons/icon1.png" },
