@@ -15,9 +15,7 @@ export default function Contact() {
    <Contact2
     title="Contact Us"
     description="We're here to help! Get in touch with the Rotaract Club of Hurlingham for any inquiries, feedback, or collaboration opportunities."
-    email="hello@rotaracthurlingham.com"
-    phone="+54 11 4567-8900"
-    address="Hurlingham, Buenos Aires, Argentina"
+    email="hello@rotaracthurlingham.co.ke"
    />
   </main>
  );
