@@ -659,7 +659,7 @@ export interface ApiGalleryAlbumGalleryAlbum
     draftAndPublish: true;
   };
   attributes: {
-    briefCaption: Schema.Attribute.RichText;
+    caption: Schema.Attribute.Blocks;
     coverImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
@@ -766,6 +766,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::category.category'
     >;
+    content: Schema.Attribute.Blocks;
     coverImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;

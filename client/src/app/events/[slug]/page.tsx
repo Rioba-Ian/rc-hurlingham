@@ -57,10 +57,11 @@ export default async function EventPage({
  const heroSrc = coverUrl(data.cover, "large");
  const hasContent = Array.isArray(data.content) && data.content.length > 0;
  const past = isPast(data.date);
+ const rsvpLink = data.rsvpLink?.trim() || null;
 
  const galleryPhotos = (data.eventphoto ?? [])
   .map((p) => ({
-   thumb: coverUrl(p, "small"),
+   thumb: coverUrl(p, "medium"),
    full: coverUrl(p, "large"),
    alt: p.alternativeText || data.title,
   }))
@@ -144,12 +145,21 @@ export default async function EventPage({
        <div className="rounded-[10px] bg-neutral-100 p-3 text-center font-montserrat text-[13.5px] text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
         This event has ended. Thanks to all who came!
        </div>
+      ) : rsvpLink ? (
+       <a
+        href={rsvpLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-[46px] w-full items-center justify-center rounded-[10px] bg-cranberry font-montserrat text-base font-semibold text-white transition-colors hover:bg-cranberry/90"
+       >
+        RSVP / Register
+       </a>
       ) : (
        <Link
         href="/contact"
         className="flex h-[46px] w-full items-center justify-center rounded-[10px] bg-cranberry font-montserrat text-base font-semibold text-white transition-colors hover:bg-cranberry/90"
        >
-        RSVP / Register
+        Get in touch to attend
        </Link>
       )}
      </div>

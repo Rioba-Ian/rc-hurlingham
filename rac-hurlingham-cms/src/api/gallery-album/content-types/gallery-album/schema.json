@@ -41,8 +41,8 @@
         "audios"
       ]
     },
-    "briefCaption": {
-      "type": "richtext"
+    "caption": {
+      "type": "blocks"
     }
   }
 }

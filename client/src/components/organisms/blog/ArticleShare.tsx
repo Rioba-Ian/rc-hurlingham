@@ -10,19 +10,48 @@ const iconBtn =
 const ArticleShare = ({ title }: { title: string }) => {
  const [copied, setCopied] = useState(false);
 
- const url = typeof window !== "undefined" ? window.location.href : "";
+ // Resolve the live URL at click time so it's always the current page.
+ const currentUrl = () =>
+  typeof window !== "undefined" ? window.location.href : "";
 
  const open = (href: string) =>
-  window.open(href, "_blank", "noopener,noreferrer,width=600,height=500");
+  window.open(href, "_blank", "noopener,noreferrer,width=600,height=520");
+
+ const shareX = () =>
+  open(
+   `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    title,
+   )}&url=${encodeURIComponent(currentUrl())}`,
+  );
+
+ const shareFacebook = () =>
+  open(
+   `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+    currentUrl(),
+   )}`,
+  );
 
  const copy = async () => {
+  const url = currentUrl();
   try {
    await navigator.clipboard.writeText(url);
-   setCopied(true);
-   setTimeout(() => setCopied(false), 2000);
   } catch {
-   // clipboard unavailable — no-op
+   // Fallback for non-secure contexts / older browsers
+   const ta = document.createElement("textarea");
+   ta.value = url;
+   ta.style.position = "fixed";
+   ta.style.opacity = "0";
+   document.body.appendChild(ta);
+   ta.select();
+   try {
+    document.execCommand("copy");
+   } catch {
+    // give up silently
+   }
+   document.body.removeChild(ta);
   }
+  setCopied(true);
+  setTimeout(() => setCopied(false), 2000);
  };
 
  return (
@@ -34,13 +63,7 @@ const ArticleShare = ({ title }: { title: string }) => {
     <button
      type="button"
      aria-label="Share on X / Twitter"
-     onClick={() =>
-      open(
-       `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-        title,
-       )}&url=${encodeURIComponent(url)}`,
-      )
-     }
+     onClick={shareX}
      className={iconBtn}
     >
      <FaXTwitter className="size-4" />
@@ -48,13 +71,7 @@ const ArticleShare = ({ title }: { title: string }) => {
     <button
      type="button"
      aria-label="Share on Facebook"
-     onClick={() =>
-      open(
-       `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-        url,
-       )}`,
-      )
-     }
+     onClick={shareFacebook}
      className={iconBtn}
     >
      <FaFacebookF className="size-4" />

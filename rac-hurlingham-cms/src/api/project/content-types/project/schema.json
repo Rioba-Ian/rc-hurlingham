@@ -60,6 +60,9 @@
       "relation": "oneToMany",
       "target": "api::category.category",
       "mappedBy": "project"
+    },
+    "content": {
+      "type": "blocks"
     }
   }
 }

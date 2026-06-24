@@ -193,6 +193,7 @@ export interface Event {
  content: BlocksContent;
  cover?: Cover | null;
  eventphoto?: Cover[] | null;
+ rsvpLink?: string | null;
  createdAt: string;
  updatedAt: string;
  publishedAt: string;
