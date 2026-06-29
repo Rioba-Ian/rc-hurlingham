@@ -17,26 +17,20 @@ Ensure you have these installed
 
 ## CMS Deployment Workflow
 
-To prevent Out-Of-Memory (OOM) errors and speed up deployment on the server, **the CMS is served as a prebuilt application** inside Docker. This means the server does not compile TypeScript or bundle the Admin UI during deployment.
+The CMS uses a **multi-stage Docker build**. The Dockerfile has two stages:
 
-Whenever you make changes to the CMS (schema, configs, controllers, etc.), you **must** build the project locally and commit the `dist` folder before pushing:
+1. **Builder** — installs all dependencies (including devDependencies), compiles TypeScript, and builds the Strapi Admin Panel.
+2. **Runner** — a slim production image that copies only the compiled output and installs production dependencies.
 
-### 1. Build the CMS locally
-From the root of the project, run:
+This means you **do not** need to run `yarn build` locally or commit the `dist/` directory. Just push your source code changes and the server handles the rest.
+
 ```bash
-cd rac-hurlingham-cms
-pnpm build # or yarn build
-cd ..
-```
-
-### 2. Commit and Push the `dist` folder
-Make sure the compiled `dist` folder is added and pushed to Git:
-```bash
-git add rac-hurlingham-cms/dist/
-git commit -m "feat: update cms and rebuild dist"
+# Make your CMS changes, then simply:
+git add .
+git commit -m "feat: update cms schema"
 git push
 ```
 
-### 3. Server Rebuild
-The server's Docker container will automatically rebuild using the prebuilt `dist` and `public` folders, resulting in a near-instant deployment without high memory/CPU overhead.
+The server will automatically build and deploy.
+
 
