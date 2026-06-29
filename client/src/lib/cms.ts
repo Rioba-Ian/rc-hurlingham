@@ -3,6 +3,7 @@ import {
  Cover,
  Director,
  Event,
+ Project,
  StrapiListResponse,
  StrapiSingleResponse,
 } from "@/types/cms";
@@ -227,5 +228,68 @@ export async function fetchDirectors(): Promise<StrapiListResponse<Director>> {
  } catch (error) {
   console.error("Error fetching directors:", error);
   return empty;
+ }
+}
+
+export async function fetchProjects(): Promise<StrapiListResponse<Project>> {
+ const empty: StrapiListResponse<Project> = {
+  data: [],
+  meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
+ };
+
+ if (!CMS_URL || !CMS_TOKEN) {
+  console.warn("CMS configuration missing, returning empty projects list");
+  return empty;
+ }
+
+ try {
+  const url = `${CMS_URL}/api/projects?populate=*`;
+  const response = await fetch(url, {
+   headers: getHeaders(),
+   next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+   console.error(
+    `Failed to fetch projects: ${response.status} - ${response.statusText}`,
+   );
+   return empty;
+  }
+
+  return response.json();
+ } catch (error) {
+  console.error("Error fetching projects:", error);
+  return empty;
+ }
+}
+
+export async function fetchProjectBySlug(
+ slug: string,
+): Promise<StrapiSingleResponse<Project>> {
+ if (!CMS_URL || !CMS_TOKEN) {
+  console.warn("CMS configuration missing, returning null project");
+  return { data: null };
+ }
+
+ try {
+  const url = `${CMS_URL}/api/projects?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`;
+  const response = await fetch(url, {
+   headers: getHeaders(),
+   next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+   console.error(
+    `Failed to fetch project: ${response.status} - ${response.statusText}`,
+   );
+   return { data: null };
+  }
+
+  const list = (await response.json()) as StrapiListResponse<Project>;
+  const item: Project | undefined = list.data[0];
+  return { data: item ?? null };
+ } catch (error) {
+  console.error("Error fetching project:", error);
+  return { data: null };
  }
 }

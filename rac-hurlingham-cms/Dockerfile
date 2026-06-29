@@ -1,27 +1,24 @@
 FROM node:22-slim
 
-# Install system dependencies
+# Install runtime dependency for image processing (sharp)
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    gcc \
-    g++ \
-    make \
-    python3 \
-    git \
     libvips-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /opt/
-COPY package.json yarn.lock ./
-RUN yarn global add node-gyp
-RUN yarn config set network-timeout 600000 -g && yarn install
-ENV PATH=/opt/node_modules/.bin:$PATH
-
+ENV NODE_ENV=production
 WORKDIR /opt/app
-COPY . .
-RUN chown -R node:node /opt/app
-USER node
-RUN ["yarn", "install"]
-RUN ["yarn", "build"]
+
+# Copy dependency manifests
+COPY package.json yarn.lock ./
+
+# Install production dependencies only (much faster, no devDependencies)
+RUN yarn config set network-timeout 600000 -g && \
+    yarn install --production --frozen-lockfile
+
+# Copy the prebuilt folders from your local machine (compiled via `yarn build` locally)
+COPY dist ./dist
+COPY public ./public
+
 EXPOSE 1337
+
 CMD ["yarn", "start"]

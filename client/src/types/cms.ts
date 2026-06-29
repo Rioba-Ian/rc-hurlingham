@@ -210,6 +210,24 @@ export interface Director {
  publishedAt: string;
 }
 
+export interface Project {
+ id: number;
+ documentId: string;
+ title: string;
+ slug: string;
+ description?: string | null;
+ coverImage?: Cover | null;
+ Gallery?: Cover[] | null;
+ date: string;
+ Location?: string | null;
+ projectStatus: "Upcoming" | "Ongoing" | "Completed";
+ categories?: Category[] | null;
+ content: BlocksContent;
+ createdAt: string;
+ updatedAt: string;
+ publishedAt: string;
+}
+
 export interface Cover {
  id: number;
  documentId: string;

@@ -1,3 +1,4 @@
+import { fetchProjects, getMediaUrl } from "@/lib/cms";
 import HorizontalScrollCarousel from "@/components/molecules/HorizontalScrollCarousel";
 import Image from "next/image";
 import underline from "@/assets/underline.svg";
@@ -75,65 +76,26 @@ const demoData = {
  ],
 };
 
-const cards = [
- {
-  id: 1,
-  title: "Community",
-  description:
-   "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-  url: "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301754/rc-hurlingham/504302524_18392626003188488_375231453140831669_n_ozbcoy.jpg",
- },
- {
-  id: 2,
-  title: "Leadership",
-  description:
-   "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+const AboutCarousel = async () => {
+ const { data: cmsProjects } = await fetchProjects();
 
-  url: "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301832/rc-hurlingham/524594164_18101375320601621_8044475636033552825_n_oqbs7q.jpg",
- },
- {
-  id: 3,
-  title: "Impact",
+ const projectItems = (cmsProjects && cmsProjects.length > 0)
+  ? cmsProjects.slice(0, 7).map((p) => ({
+      id: p.documentId,
+      title: p.title,
+      description: p.description || "",
+      href: `/projects/${p.slug}`,
+      image: getMediaUrl(p.coverImage?.url) || demoData.items[0].image,
+    }))
+  : demoData.items;
+
+ const carouselData = {
+  title: "Projects",
   description:
-   "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+   "Discover how our members take action — from community drives to leadership training and beyond.",
+  items: projectItems,
+ };
 
-  url: "https://res.cloudinary.com/drxurk7lu/image/upload/v1754301779/rc-hurlingham/525756364_18392626075188488_1218777187996823509_n_vrsgif.jpg",
- },
- {
-  id: 4,
-  title: "Professional Leadership & Development",
-  description:
-   "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-
-  url: "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302184/rc-hurlingham/489041455_17898809637163805_7384207761434184886_n_vwbezw.jpg",
- },
- {
-  id: 5,
-  title: "Mentorship",
-  description:
-   "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-
-  url: "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302686/rc-hurlingham/470254329_593849653194104_7572726715906509254_n_x6cfqi.jpg",
- },
- {
-  id: 6,
-  title: "Mentorship",
-  description:
-   "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-
-  url: "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302686/rc-hurlingham/469720245_1094096229119568_3431651376604334017_n_jvpc7h.jpg",
- },
- {
-  id: 7,
-  title: "Mentorship",
-  description:
-   "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-
-  url: "https://res.cloudinary.com/drxurk7lu/image/upload/v1754302649/rc-hurlingham/478740699_18086184880601621_4672046275343247977_n_dqilmx.jpg",
- },
-];
-
-const AboutCarousel = () => {
  return (
   <div className="bg-cranberry-foreground dark:bg-neutral-800 space-y-8 md:space-y-16  mx-auto px-4">
    <div className="py-8 md:py-16 flex flex-col items-center justify-center text-neutral-600 dark:text-neutral-200 gap-8 md:gap-16 w-1/2 mx-auto text-center relative">
@@ -174,7 +136,7 @@ const AboutCarousel = () => {
     <Sponsors />
    </div>
    <Mission />
-   <Gallery {...demoData} />
+   <Gallery {...carouselData} />
   </div>
  );
 };

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { fetchArticles, fetchEvents } from "@/lib/cms";
+import { fetchArticles, fetchEvents, fetchProjects } from "@/lib/cms";
 
 const BASE =
     process.env.SITE_URL ||
@@ -25,9 +25,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
 
     // Dynamic CMS routes (best-effort — fetchers return empty on failure).
-    const [{ data: articles }, { data: events }] = await Promise.all([
+    const [{ data: articles }, { data: events }, { data: projects }] = await Promise.all([
         fetchArticles(),
         fetchEvents(),
+        fetchProjects(),
     ]);
 
     const articleRoutes: MetadataRoute.Sitemap = (articles ?? [])
@@ -48,5 +49,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.6,
         }));
 
-    return [...staticRoutes, ...articleRoutes, ...eventRoutes];
+    const projectRoutes: MetadataRoute.Sitemap = (projects ?? [])
+        .filter((p) => p.slug)
+        .map((p) => ({
+            url: `${BASE}/projects/${p.slug}`,
+            lastModified: p.updatedAt || p.publishedAt || now,
+            changeFrequency: "monthly",
+            priority: 0.6,
+        }));
+
+    return [...staticRoutes, ...articleRoutes, ...eventRoutes, ...projectRoutes];
 }
