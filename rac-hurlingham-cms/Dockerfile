@@ -31,6 +31,7 @@ WORKDIR /opt/app
 COPY .yarnrc.yml ./
 COPY .yarn ./.yarn
 COPY package.json ./
+COPY --from=builder /opt/app/yarn.lock ./yarn.lock
 
 # Copy node_modules from builder (same base image, native binaries are compatible)
 COPY --from=builder /opt/app/node_modules ./node_modules
