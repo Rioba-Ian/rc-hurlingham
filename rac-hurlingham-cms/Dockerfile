@@ -21,6 +21,10 @@ COPY src ./src
 COPY dist ./dist
 COPY public ./public
 
+# Place the prebuilt admin panel where Strapi expects it at runtime
+RUN mkdir -p node_modules/@strapi/admin/dist/server/server/build && \
+    cp -r dist/build/* node_modules/@strapi/admin/dist/server/server/build/
+
 EXPOSE 1337
 
 CMD ["yarn", "start"]
