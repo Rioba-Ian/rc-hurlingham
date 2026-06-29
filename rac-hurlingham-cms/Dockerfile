@@ -9,9 +9,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/app
 
+# Copy Yarn Berry config and release FIRST so `yarn install` uses v4
+COPY .yarnrc.yml ./
+COPY .yarn ./.yarn
 COPY package.json yarn.lock ./
-RUN yarn config set network-timeout 600000 -g && \
-    yarn install --frozen-lockfile
+
+RUN yarn install --immutable
 
 COPY . .
 RUN yarn build
@@ -27,12 +30,14 @@ RUN apt-get update && apt-get install -y \
 ENV NODE_ENV=production
 WORKDIR /opt/app
 
-# Copy dependency manifests and install production-only deps
+# Copy Yarn Berry config so `yarn start` uses the correct version
+COPY .yarnrc.yml ./
+COPY .yarn ./.yarn
 COPY package.json yarn.lock ./
-RUN yarn config set network-timeout 600000 -g && \
-    yarn install --production --frozen-lockfile
 
-# Copy source (needed for TS runtime resolution) and prebuilt artifacts from builder
+RUN yarn workspaces focus --production
+
+# Copy source and prebuilt artifacts from builder
 COPY --from=builder /opt/app/tsconfig.json ./
 COPY --from=builder /opt/app/src ./src
 COPY --from=builder /opt/app/dist ./dist
