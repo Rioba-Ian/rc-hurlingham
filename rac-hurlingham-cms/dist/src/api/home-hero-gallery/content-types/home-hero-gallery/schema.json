@@ -1,0 +1,28 @@
+{
+    "kind": "collectionType",
+    "collectionName": "home_hero_galleries",
+    "info": {
+        "singularName": "home-hero-gallery",
+        "pluralName": "home-hero-galleries",
+        "displayName": "Home Hero Gallery"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "Gallery": {
+            "type": "media",
+            "multiple": true,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "order": {
+            "type": "integer"
+        }
+    }
+}
