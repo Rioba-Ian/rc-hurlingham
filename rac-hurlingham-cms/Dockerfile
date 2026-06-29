@@ -1,5 +1,5 @@
 # ─── Stage 1: Builder ──────────────────────────────────────────────
-# Install ALL dependencies (including devDependencies) and build Strapi.
+# Install ALL dependencies and build Strapi.
 FROM node:22-slim AS builder
 
 RUN apt-get update && apt-get install -y \
@@ -9,15 +9,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/app
 
-# Copy Yarn Berry config and release FIRST so `yarn install` uses v4
-COPY .yarnrc.yml ./
+# Copy Yarn Berry config, release, and dependency manifests
+COPY .yarnrc.yml .yarn package.json yarn.lock ./
 COPY .yarn ./.yarn
-COPY package.json yarn.lock ./
-
-RUN yarn install --immutable
 
 COPY . .
-RUN yarn build
+RUN yarn install && yarn build
 
 # ─── Stage 2: Runner ──────────────────────────────────────────────
 # Slim production image — no compilers, no devDependencies.
@@ -30,12 +27,13 @@ RUN apt-get update && apt-get install -y \
 ENV NODE_ENV=production
 WORKDIR /opt/app
 
-# Copy Yarn Berry config so `yarn start` uses the correct version
+# Copy Yarn Berry config (needed for `yarn start`)
 COPY .yarnrc.yml ./
 COPY .yarn ./.yarn
-COPY package.json yarn.lock ./
+COPY package.json ./
 
-RUN yarn workspaces focus --production
+# Copy node_modules from builder (same base image, native binaries are compatible)
+COPY --from=builder /opt/app/node_modules ./node_modules
 
 # Copy source and prebuilt artifacts from builder
 COPY --from=builder /opt/app/tsconfig.json ./
