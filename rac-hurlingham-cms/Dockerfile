@@ -15,10 +15,12 @@ COPY package.json yarn.lock ./
 RUN yarn config set network-timeout 600000 -g && \
     yarn install --production --frozen-lockfile
 
-# Copy the prebuilt folders from your local machine (compiled via `yarn build` locally)
+# Copy the prebuilt folders and tsconfig.json from your local machine
+COPY tsconfig.json ./
 COPY dist ./dist
 COPY public ./public
 
 EXPOSE 1337
 
 CMD ["yarn", "start"]
+
