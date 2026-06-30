@@ -175,7 +175,7 @@ export interface Article {
  createdAt: string;
  updatedAt: string;
  publishedAt: string;
- content: BlocksContent;
+ content: BlocksContent | string;
  cover?: Cover | null;
  author?: Author | null;
  category: Category | null;
@@ -190,7 +190,7 @@ export interface Event {
  description?: string | null;
  date: string;
  location?: string | null;
- content: BlocksContent;
+ content: BlocksContent | string;
  cover?: Cover | null;
  eventphoto?: Cover[] | null;
  rsvpLink?: string | null;
@@ -222,7 +222,7 @@ export interface Project {
  Location?: string | null;
  projectStatus: "Upcoming" | "Ongoing" | "Completed";
  categories?: Category[] | null;
- content: BlocksContent;
+ content: BlocksContent | string;
  createdAt: string;
  updatedAt: string;
  publishedAt: string;
