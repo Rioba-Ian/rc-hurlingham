@@ -32,7 +32,9 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
     ? MOCK_DETAIL_IMAGE 
     : getMediaUrl(project.coverImage?.url);
 
-  const hasContent = Array.isArray(project.content) && project.content.length > 0;
+  const hasContent = 
+    (Array.isArray(project.content) && project.content.length > 0) ||
+    (typeof project.content === "string" && project.content.trim().length > 0);
 
   // Gather gallery photos
   const galleryPhotos = (project.Gallery ?? [])

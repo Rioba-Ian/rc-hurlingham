@@ -55,7 +55,9 @@ export default async function EventPage({
  }
 
  const heroSrc = coverUrl(data.cover, "large");
- const hasContent = Array.isArray(data.content) && data.content.length > 0;
+ const hasContent =
+  (Array.isArray(data.content) && data.content.length > 0) ||
+  (typeof data.content === "string" && data.content.trim().length > 0);
  const past = isPast(data.date);
  const rsvpLink = data.rsvpLink?.trim() || null;
 

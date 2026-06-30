@@ -58,7 +58,9 @@ export default async function ArticlePage({
   );
  }
  const coverUrl = pickCover(data.cover, "large");
- const hasContent = Array.isArray(data.content) && data.content.length > 0;
+ const hasContent =
+  (Array.isArray(data.content) && data.content.length > 0) ||
+  (typeof data.content === "string" && data.content.trim().length > 0);
 
  // Related: other articles (prefer same category), newest first, max 3.
  const { data: all } = await fetchArticles();

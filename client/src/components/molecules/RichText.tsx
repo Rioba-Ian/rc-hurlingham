@@ -17,13 +17,166 @@ const headingClasses: Record<number, string> = {
 };
 
 interface RichTextProps {
- content: BlocksContent | string;
+ content: BlocksContent | string | Record<string, any>;
 }
 
-/** Renders either Strapi Blocks (JSON) or TipTap (HTML string) with the site's typography + cranberry accents. */
+interface TipTapNode {
+  type: string;
+  attrs?: Record<string, any>;
+  content?: TipTapNode[];
+  text?: string;
+  marks?: { type: string; attrs?: Record<string, any> }[];
+}
+
+/** Recursively renders TipTap JSON nodes with our custom styling. */
+const TipTapRenderer = ({ node }: { node: TipTapNode }): React.JSX.Element | null => {
+  if (!node) return null;
+
+  const renderChildren = () => {
+    if (!node.content) return null;
+    return node.content.map((child, idx) => (
+      <TipTapRenderer key={idx} node={child} />
+    ));
+  };
+
+  // Render text with inline formatting marks (bold, italic, links, etc.)
+  if (node.type === "text" && node.text) {
+    let result: React.ReactNode = node.text;
+    if (node.marks) {
+      for (const mark of node.marks) {
+        if (mark.type === "bold") {
+          result = <strong className="font-semibold text-neutral-900 dark:text-neutral-100">{result}</strong>;
+        } else if (mark.type === "italic") {
+          result = <em className="italic">{result}</em>;
+        } else if (mark.type === "underline") {
+          result = <u>{result}</u>;
+        } else if (mark.type === "strike") {
+          result = <s>{result}</s>;
+        } else if (mark.type === "code") {
+          result = (
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.9em] text-cranberry dark:bg-neutral-800">
+              {result}
+            </code>
+          );
+        } else if (mark.type === "link" && mark.attrs?.href) {
+          result = (
+            <Link
+              href={mark.attrs.href}
+              className="text-cranberry underline underline-offset-2 hover:text-cranberry/80"
+            >
+              {result}
+            </Link>
+          );
+        }
+      }
+    }
+    return <>{result}</>;
+  }
+
+  switch (node.type) {
+    case "doc":
+      return <div className="space-y-1">{renderChildren()}</div>;
+    case "paragraph":
+      return (
+        <p className="my-5 font-montserrat text-[16.5px] leading-[1.8] text-neutral-700 dark:text-neutral-300">
+          {renderChildren()}
+        </p>
+      );
+    case "heading": {
+      const level = node.attrs?.level || 3;
+      const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+      return (
+        <Tag className={`${headingClasses[level] ?? headingClasses[3]} text-neutral-900 dark:text-neutral-100`}>
+          {renderChildren()}
+        </Tag>
+      );
+    }
+    case "bulletList":
+      return (
+        <ul className="my-5 list-disc space-y-2 pl-6 font-montserrat text-[16.5px] leading-[1.7] text-neutral-700 dark:text-neutral-300">
+          {renderChildren()}
+        </ul>
+      );
+    case "orderedList":
+      return (
+        <ol className="my-5 list-decimal space-y-2 pl-6 font-montserrat text-[16.5px] leading-[1.7] text-neutral-700 dark:text-neutral-300">
+          {renderChildren()}
+        </ol>
+      );
+    case "listItem":
+      return <li>{renderChildren()}</li>;
+    case "blockquote":
+      return (
+        <blockquote className="my-6 border-l-4 border-cranberry pl-5 font-montserrat text-[16.5px] italic leading-[1.7] text-neutral-700 dark:text-neutral-300">
+          {renderChildren()}
+        </blockquote>
+      );
+    case "codeBlock":
+      return (
+        <pre className="my-6 overflow-x-auto rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-800">
+          <code>{renderChildren()}</code>
+        </pre>
+      );
+    case "image":
+      if (!node.attrs?.src) return null;
+      return (
+        <Image
+          src={node.attrs.src}
+          alt={node.attrs.alt || ""}
+          width={1200}
+          height={800}
+          className="my-6 h-auto w-full rounded-lg object-cover"
+        />
+      );
+    case "table":
+      return (
+        <div className="my-6 w-full overflow-x-auto rounded-xl border border-border">
+          <table className="w-full border-collapse text-left font-montserrat text-sm text-neutral-700 dark:text-neutral-300">
+            <tbody>{renderChildren()}</tbody>
+          </table>
+        </div>
+      );
+    case "tableRow":
+      return <tr className="border-b border-border last:border-b-0 hover:bg-neutral-50/50 dark:hover:bg-neutral-800/30">{renderChildren()}</tr>;
+    case "tableHeader":
+      return (
+        <th className="bg-neutral-50 px-4 py-3 font-raleway font-semibold text-neutral-900 dark:bg-neutral-800/50 dark:text-neutral-100">
+          {renderChildren()}
+        </th>
+      );
+    case "tableCell":
+      return <td className="px-4 py-3 align-top">{renderChildren()}</td>;
+    case "horizontalRule":
+      return <hr className="my-8 border-t border-border" />;
+    case "hardBreak":
+      return <br />;
+    default:
+      return <>{renderChildren()}</>;
+  }
+};
+
+/** Renders either Strapi Blocks (JSON) or TipTap (HTML string/JSON) with the site's typography + cranberry accents. */
 const RichText = ({ content }: RichTextProps) => {
-  // If the content is an HTML string (from TipTap Editor)
+  // 1. If the content is a string
   if (typeof content === "string") {
+    const trimmed = content.trim();
+    // Check if it is a stringified TipTap JSON object
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+      try {
+        let parsed = JSON.parse(trimmed);
+        // Handle double-stringified JSON
+        if (typeof parsed === "string") {
+          parsed = JSON.parse(parsed);
+        }
+        if (parsed && typeof parsed === "object" && (parsed.type === "doc" || Array.isArray(parsed.content))) {
+          return <TipTapRenderer node={parsed as TipTapNode} />;
+        }
+      } catch (e) {
+        // Fallback to HTML rendering if JSON parsing fails
+      }
+    }
+
+    // Otherwise, render as raw HTML (from TipTap HTML Editor)
     return (
       <div 
         className="prose dark:prose-invert max-w-none font-montserrat text-[16.5px] leading-[1.8] text-neutral-700 dark:text-neutral-300
@@ -46,10 +199,18 @@ const RichText = ({ content }: RichTextProps) => {
     );
   }
 
-  // If the content is JSON (from default Blocks Editor)
+  // 2. If the content is a parsed TipTap JSON object (non-array object)
+  if (content && typeof content === "object" && !Array.isArray(content)) {
+    const obj = content as any;
+    if (obj.type === "doc" || Array.isArray(obj.content)) {
+      return <TipTapRenderer node={obj as TipTapNode} />;
+    }
+  }
+
+  // 3. If the content is a JSON Array (traditional Strapi Blocks Editor)
   return (
    <BlocksRenderer
-    content={content}
+    content={content as BlocksContent}
     blocks={{
      paragraph: ({ children }) => (
       <p className="my-5 font-montserrat text-[16.5px] leading-[1.8] text-neutral-700 dark:text-neutral-300">
