@@ -16,83 +16,112 @@ const headingClasses: Record<number, string> = {
  6: "mt-6 mb-2 font-raleway text-sm font-semibold uppercase tracking-wide",
 };
 
-/** Renders Strapi Blocks rich text with the site's typography + cranberry accents. */
-const RichText = ({ content }: { content: BlocksContent }) => {
- return (
-  <BlocksRenderer
-   content={content}
-   blocks={{
-    paragraph: ({ children }) => (
-     <p className="my-5 font-montserrat text-[16.5px] leading-[1.8] text-neutral-700 dark:text-neutral-300">
-      {children}
-     </p>
-    ),
-    heading: ({ children, level }) => {
-     const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-     return (
-      <Tag
-       className={`${headingClasses[level] ?? headingClasses[3]} text-neutral-900 dark:text-neutral-100`}
+interface RichTextProps {
+ content: BlocksContent | string;
+}
+
+/** Renders either Strapi Blocks (JSON) or TipTap (HTML string) with the site's typography + cranberry accents. */
+const RichText = ({ content }: RichTextProps) => {
+  // If the content is an HTML string (from TipTap Editor)
+  if (typeof content === "string") {
+    return (
+      <div 
+        className="prose dark:prose-invert max-w-none font-montserrat text-[16.5px] leading-[1.8] text-neutral-700 dark:text-neutral-300
+          prose-p:my-5 prose-p:leading-[1.8]
+          prose-headings:font-raleway prose-headings:font-bold prose-headings:text-neutral-900 dark:prose-headings:text-neutral-100
+          prose-h1:mt-10 prose-h1:mb-4 prose-h1:text-3xl md:prose-h1:text-4xl
+          prose-h2:mt-9 prose-h2:mb-3.5 prose-h2:text-2xl md:prose-h2:text-3xl
+          prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-xl md:prose-h3:text-2xl
+          prose-h4:mt-7 prose-h4:mb-2.5 prose-h4:text-lg md:prose-h4:text-xl
+          prose-ul:my-5 prose-ul:list-disc prose-ul:pl-6
+          prose-ol:my-5 prose-ol:list-decimal prose-ol:pl-6
+          prose-li:my-2
+          prose-blockquote:my-6 prose-blockquote:border-l-4 prose-blockquote:border-cranberry prose-blockquote:pl-5 prose-blockquote:italic
+          prose-code:rounded prose-code:bg-neutral-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-[0.9em] prose-code:text-cranberry dark:prose-code:bg-neutral-800
+          prose-pre:my-6 prose-pre:overflow-x-auto prose-pre:rounded-lg prose-pre:bg-neutral-900 prose-pre:p-4 prose-pre:font-mono prose-pre:text-sm prose-pre:text-neutral-100 dark:prose-pre:bg-neutral-800
+          prose-a:text-cranberry prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-cranberry/80
+          prose-img:my-6 prose-img:rounded-lg prose-img:w-full"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
+  }
+
+  // If the content is JSON (from default Blocks Editor)
+  return (
+   <BlocksRenderer
+    content={content}
+    blocks={{
+     paragraph: ({ children }) => (
+      <p className="my-5 font-montserrat text-[16.5px] leading-[1.8] text-neutral-700 dark:text-neutral-300">
+       {children}
+      </p>
+     ),
+     heading: ({ children, level }) => {
+      const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+      return (
+       <Tag
+        className={`${headingClasses[level] ?? headingClasses[3]} text-neutral-900 dark:text-neutral-100`}
+       >
+        {children}
+       </Tag>
+      );
+     },
+     list: ({ children, format }) =>
+      format === "ordered" ? (
+       <ol className="my-5 list-decimal space-y-2 pl-6 font-montserrat text-[16.5px] leading-[1.7] text-neutral-700 dark:text-neutral-300">
+        {children}
+       </ol>
+      ) : (
+       <ul className="my-5 list-disc space-y-2 pl-6 font-montserrat text-[16.5px] leading-[1.7] text-neutral-700 dark:text-neutral-300">
+        {children}
+       </ul>
+      ),
+     "list-item": ({ children }) => <li>{children}</li>,
+     quote: ({ children }) => (
+      <blockquote className="my-6 border-l-4 border-cranberry pl-5 font-montserrat text-[16.5px] italic leading-[1.7] text-neutral-700 dark:text-neutral-300">
+       {children}
+      </blockquote>
+     ),
+     code: ({ children }) => (
+      <pre className="my-6 overflow-x-auto rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-800">
+       <code>{children}</code>
+      </pre>
+     ),
+     link: ({ children, url }) => (
+      <Link
+       href={url}
+       className="text-cranberry underline underline-offset-2 hover:text-cranberry/80"
       >
        {children}
-      </Tag>
-     );
-    },
-    list: ({ children, format }) =>
-     format === "ordered" ? (
-      <ol className="my-5 list-decimal space-y-2 pl-6 font-montserrat text-[16.5px] leading-[1.7] text-neutral-700 dark:text-neutral-300">
-       {children}
-      </ol>
-     ) : (
-      <ul className="my-5 list-disc space-y-2 pl-6 font-montserrat text-[16.5px] leading-[1.7] text-neutral-700 dark:text-neutral-300">
-       {children}
-      </ul>
+      </Link>
      ),
-    "list-item": ({ children }) => <li>{children}</li>,
-    quote: ({ children }) => (
-     <blockquote className="my-6 border-l-4 border-cranberry pl-5 font-montserrat text-[16.5px] italic leading-[1.7] text-neutral-700 dark:text-neutral-300">
-      {children}
-     </blockquote>
-    ),
-    code: ({ children }) => (
-     <pre className="my-6 overflow-x-auto rounded-lg bg-neutral-900 p-4 font-mono text-sm text-neutral-100 dark:bg-neutral-800">
-      <code>{children}</code>
-     </pre>
-    ),
-    link: ({ children, url }) => (
-     <Link
-      href={url}
-      className="text-cranberry underline underline-offset-2 hover:text-cranberry/80"
-     >
-      {children}
-     </Link>
-    ),
-    image: ({ image }) => (
-     <Image
-      src={image.url}
-      alt={image.alternativeText || ""}
-      width={image.width || 1200}
-      height={image.height || 800}
-      className="my-6 h-auto w-full rounded-lg object-cover"
-     />
-    ),
-   }}
-   modifiers={{
-    bold: ({ children }) => (
-     <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
-      {children}
-     </strong>
-    ),
-    italic: ({ children }) => <em className="italic">{children}</em>,
-    underline: ({ children }) => <u>{children}</u>,
-    strikethrough: ({ children }) => <s>{children}</s>,
-    code: ({ children }) => (
-     <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.9em] text-cranberry dark:bg-neutral-800">
-      {children}
-     </code>
-    ),
-   }}
-  />
- );
+     image: ({ image }) => (
+      <Image
+       src={image.url}
+       alt={image.alternativeText || ""}
+       width={image.width || 1200}
+       height={image.height || 800}
+       className="my-6 h-auto w-full rounded-lg object-cover"
+      />
+     ),
+    }}
+    modifiers={{
+     bold: ({ children }) => (
+      <strong className="font-semibold text-neutral-900 dark:text-neutral-100">
+       {children}
+      </strong>
+     ),
+     italic: ({ children }) => <em className="italic">{children}</em>,
+     underline: ({ children }) => <u>{children}</u>,
+     strikethrough: ({ children }) => <s>{children}</s>,
+     code: ({ children }) => (
+      <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.9em] text-cranberry dark:bg-neutral-800">
+       {children}
+      </code>
+     ),
+    }}
+   />
+  );
 };
 
 export default RichText;

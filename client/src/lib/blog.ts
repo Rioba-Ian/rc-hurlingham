@@ -14,9 +14,12 @@ export function formatDate(iso?: string | null): string {
 
 type AnyNode = { text?: string; children?: AnyNode[] };
 
-/** Flatten all leaf text out of a Strapi Blocks tree. */
-export function blocksToPlainText(content?: BlocksContent | null): string {
+/** Flatten all leaf text out of a Strapi Blocks tree or strip HTML tags from a string. */
+export function blocksToPlainText(content?: BlocksContent | string | null): string {
  if (!content) return "";
+ if (typeof content === "string") {
+  return content.replace(/<\/?[^>]+(>|$)/g, " ").replace(/\s+/g, " ").trim();
+ }
  const walk = (nodes: AnyNode[]): string =>
   nodes
    .map((n) => {
@@ -29,7 +32,7 @@ export function blocksToPlainText(content?: BlocksContent | null): string {
 }
 
 /** Estimated reading time in minutes (~200 wpm), minimum 1. */
-export function readingTime(content?: BlocksContent | null): number {
+export function readingTime(content?: BlocksContent | string | null): number {
  const text = blocksToPlainText(content);
  const words = text ? text.split(/\s+/).length : 0;
  return Math.max(1, Math.round(words / 200));

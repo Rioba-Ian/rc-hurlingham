@@ -16,11 +16,12 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.18.0",
+    "@notum-cz/strapi-plugin-tiptap-editor": "^1.2.4",
+    "@strapi/plugin-cloud": "5.49.0",
     "@strapi/plugin-sentry": "^5.23.0",
-    "@strapi/plugin-users-permissions": "5.18.0",
+    "@strapi/plugin-users-permissions": "5.49.0",
     "@strapi/provider-upload-cloudinary": "^5.18.1",
-    "@strapi/strapi": "5.18.0",
+    "@strapi/strapi": "5.49.0",
     "better-sqlite3": "11.3.0",
     "fs-extra": "^10.0.0",
     "mime-types": "^2.1.27",
@@ -39,6 +40,15 @@
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
+  },
+  "overrides": {
+    "@strapi/strapi": "5.49.0",
+    "@strapi/content-manager": "5.49.0",
+    "@strapi/content-type-builder": "5.49.0",
+    "@strapi/upload": "5.49.0",
+    "@strapi/i18n": "5.49.0",
+    "@strapi/content-releases": "5.49.0",
+    "@strapi/review-workflows": "5.49.0"
   },
   "strapi": {
     "uuid": "753cb154-8152-4c10-9c7d-7f4c8a3bbe6e",

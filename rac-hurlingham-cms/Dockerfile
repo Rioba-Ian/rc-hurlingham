@@ -9,15 +9,18 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/app
 
-# Copy Yarn Berry config, release, and dependency manifests
-COPY .yarnrc.yml .yarn package.json yarn.lock ./
-COPY .yarn ./.yarn
+# Install dependencies first for better layer caching.
+# .npmrc carries `legacy-peer-deps=true`; package.json carries the
+# @strapi/* version `overrides` — both are honored by `npm ci`.
+COPY package.json package-lock.json .npmrc ./
+RUN npm ci
 
+# Copy source and build the admin panel + compile TS.
 COPY . .
-RUN yarn install && yarn build
+RUN npm run build
 
 # ─── Stage 2: Runner ──────────────────────────────────────────────
-# Slim production image — no compilers, no devDependencies.
+# Slim production image — no compilers.
 FROM node:22-slim AS runner
 
 RUN apt-get update && apt-get install -y \
@@ -27,11 +30,8 @@ RUN apt-get update && apt-get install -y \
 ENV NODE_ENV=production
 WORKDIR /opt/app
 
-# Copy Yarn Berry config (needed for `yarn start`)
-COPY .yarnrc.yml ./
-COPY .yarn ./.yarn
+# Manifest needed for the `start` script.
 COPY package.json ./
-COPY --from=builder /opt/app/yarn.lock ./yarn.lock
 
 # Copy node_modules from builder (same base image, native binaries are compatible)
 COPY --from=builder /opt/app/node_modules ./node_modules
@@ -47,4 +47,4 @@ RUN mkdir -p node_modules/@strapi/admin/dist/server/server/build && \
     cp -r dist/build/* node_modules/@strapi/admin/dist/server/server/build/
 
 EXPOSE 1337
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]

@@ -62,7 +62,11 @@
       "mappedBy": "project"
     },
     "content": {
-      "type": "blocks"
+      "type": "customField",
+      "customField": "plugin::tiptap-editor.RichText",
+      "options": {
+        "preset": "full"
+      }
     }
   }
 }

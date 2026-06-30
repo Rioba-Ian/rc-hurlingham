@@ -12,7 +12,7 @@ const UpcomingEventRow = ({ event }: { event: Event }) => {
  return (
   <Link
    href={`/events/${event.slug}`}
-   className="group flex items-center gap-4 rounded-2xl border border-border bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cranberry/35 hover:shadow-lg sm:gap-5 sm:p-5 dark:bg-neutral-900"
+   className="group flex w-full min-w-0 items-center gap-3.5 rounded-2xl border border-border bg-white p-3.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cranberry/35 hover:shadow-lg sm:gap-5 sm:p-5 dark:bg-neutral-900"
   >
    {src ? (
     <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl sm:h-48 sm:w-48">

@@ -2,14 +2,17 @@
 
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
 
+## ✅ Prerequisites
+
+- **Node.js 22** (see `.nvmrc`; Strapi 5 supports Node 18/20/22 — newer versions are unsupported). Run `nvm use` before installing or running.
+- **npm** is the package manager for this project. Installs require peer-dep tolerance, already configured via `.npmrc` (`legacy-peer-deps=true`).
+
 ### `develop`
 
 Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
 
 ```
 npm run develop
-# or
-yarn develop
 ```
 
 ### `start`
@@ -18,8 +21,6 @@ Start your Strapi application with autoReload disabled. [Learn more](https://doc
 
 ```
 npm run start
-# or
-yarn start
 ```
 
 ### `build`
@@ -28,8 +29,6 @@ Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-
 
 ```
 npm run build
-# or
-yarn build
 ```
 
 ## ⚙️ Deployment
@@ -37,7 +36,7 @@ yarn build
 Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
 
 ```
-yarn strapi deploy
+npm run deploy
 ```
 
 ## 📦 Docker
