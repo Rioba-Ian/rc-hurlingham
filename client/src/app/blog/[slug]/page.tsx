@@ -11,6 +11,7 @@ import Avatar from "@/components/molecules/Avatar";
 import RichText from "@/components/molecules/RichText";
 import ArticleCard from "@/components/molecules/ArticleCard";
 import ArticleShare from "@/components/organisms/blog/ArticleShare";
+import ClickableImage from "@/components/molecules/ClickableImage";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
@@ -104,8 +105,8 @@ export default async function ArticlePage({
    </div>
 
    {coverUrl && (
-    <div className="mx-auto mt-8 max-w-[920px] px-6">
-     <Image
+    <div className="mx-auto mt-8 max-w-[1080px] px-6">
+     <ClickableImage
       src={coverUrl}
       alt={data.title}
       width={1200}

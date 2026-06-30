@@ -38,6 +38,10 @@ export const Header = () => {
  const pathname = usePathname();
  const isHome = pathname === "/";
 
+ React.useEffect(() => {
+  setMenuState(false);
+ }, [pathname]);
+
  return (
   <header>
    <nav

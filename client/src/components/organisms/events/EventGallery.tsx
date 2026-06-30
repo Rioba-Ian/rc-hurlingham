@@ -1,217 +1,231 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import {
- Carousel,
- type CarouselApi,
- CarouselContent,
- CarouselItem,
-} from "@/components/molecules/carousel";
-import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface GalleryPhoto {
- thumb: string;
- full: string;
- alt: string;
+  thumb: string;
+  full: string;
+  alt: string;
 }
 
-const arrowBtn =
- "flex size-9 items-center justify-center rounded-full border border-border text-neutral-700 transition-colors hover:border-cranberry hover:text-cranberry disabled:opacity-40 disabled:hover:border-border disabled:hover:text-neutral-700 dark:text-neutral-200";
-
-/** Event photo gallery: a carousel of large photos that open a lightbox. */
 const EventGallery = ({ photos }: { photos: GalleryPhoto[] }) => {
- const count = photos.length;
- const [api, setApi] = useState<CarouselApi>();
- const [selected, setSelected] = useState(0);
- const [canPrev, setCanPrev] = useState(false);
- const [canNext, setCanNext] = useState(false);
- const [index, setIndex] = useState<number | null>(null); // lightbox index
- const open = index !== null;
+  const count = photos.length;
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
- useEffect(() => {
-  if (!api) return;
-  const update = () => {
-   setSelected(api.selectedScrollSnap());
-   setCanPrev(api.canScrollPrev());
-   setCanNext(api.canScrollNext());
+  const nextSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCarouselIndex((prev) => (prev + 1) % count);
   };
-  update();
-  api.on("select", update);
-  api.on("reInit", update);
-  return () => {
-   api.off("select", update);
+
+  const prevSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCarouselIndex((prev) => (prev - 1 + count) % count);
   };
- }, [api]);
 
- const close = useCallback(() => setIndex(null), []);
- const lbPrev = useCallback(
-  () => setIndex((i) => (i === null ? i : (i - 1 + count) % count)),
-  [count],
- );
- const lbNext = useCallback(
-  () => setIndex((i) => (i === null ? i : (i + 1) % count)),
-  [count],
- );
+  // Keyboard navigation for fullscreen lightbox
+  useEffect(() => {
+    if (lightboxIndex === null) return;
 
- useEffect(() => {
-  if (!open) return;
-  const onKey = (e: KeyboardEvent) => {
-   if (e.key === "Escape") close();
-   else if (e.key === "ArrowLeft") lbPrev();
-   else if (e.key === "ArrowRight") lbNext();
-  };
-  window.addEventListener("keydown", onKey);
-  document.body.style.overflow = "hidden";
-  return () => {
-   window.removeEventListener("keydown", onKey);
-   document.body.style.overflow = "";
-  };
- }, [open, close, lbPrev, lbNext]);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setLightboxIndex(null);
+      } else if (e.key === "ArrowRight") {
+        setLightboxIndex((prev) => (prev! + 1) % count);
+      } else if (e.key === "ArrowLeft") {
+        setLightboxIndex((prev) => (prev! - 1 + count) % count);
+      }
+    };
 
- if (count === 0) return null;
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, count]);
 
- return (
-  <section className="mt-10">
-   <div className="mb-4 flex items-center justify-between">
-    <h2 className="font-raleway text-[22px] font-bold text-neutral-900 dark:text-neutral-100">
-     Photos
-    </h2>
-    {count > 1 && (
-     <div className="flex gap-2">
-      <button
-       type="button"
-       aria-label="Previous photo"
-       onClick={() => api?.scrollPrev()}
-       disabled={!canPrev}
-       className={arrowBtn}
-      >
-       <ChevronLeft className="size-5" />
-      </button>
-      <button
-       type="button"
-       aria-label="Next photo"
-       onClick={() => api?.scrollNext()}
-       disabled={!canNext}
-       className={arrowBtn}
-      >
-       <ChevronRight className="size-5" />
-      </button>
-     </div>
-    )}
-   </div>
+  // Lock body scroll when the fullscreen lightbox is open
+  useEffect(() => {
+    if (lightboxIndex === null) return;
 
-   <Carousel setApi={setApi} opts={{ align: "start", loop: count > 1 }}>
-    <CarouselContent>
-     {photos.map((p, i) => (
-      <CarouselItem key={i} className="basis-full sm:basis-4/5 lg:basis-2/3">
-       <button
-        type="button"
-        onClick={() => setIndex(i)}
-        aria-label={`Open photo ${i + 1}`}
-        className="group relative block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border"
-       >
-        <Image
-         src={p.thumb}
-         alt={p.alt}
-         fill
-         sizes="(max-width: 640px) 100vw, 66vw"
-         className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-       </button>
-      </CarouselItem>
-     ))}
-    </CarouselContent>
-   </Carousel>
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden";
 
-   {count > 1 && (
-    <div className="mt-4 flex justify-center gap-2">
-     {photos.map((_, i) => (
-      <button
-       key={i}
-       type="button"
-       aria-label={`Go to photo ${i + 1}`}
-       onClick={() => api?.scrollTo(i)}
-       className={cn(
-        "h-2 rounded-full transition-all duration-300",
-        selected === i
-         ? "w-6 bg-cranberry"
-         : "w-2 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600",
-       )}
-      />
-     ))}
-    </div>
-   )}
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
+  }, [lightboxIndex]);
 
-   {/* Lightbox */}
-   {open && index !== null && (
-    <div
-     className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
-     onClick={close}
-     role="dialog"
-     aria-modal="true"
-    >
-     <button
-      type="button"
-      aria-label="Close"
-      onClick={close}
-      className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-     >
-      <X className="size-5" />
-     </button>
+  if (count === 0) return null;
 
-     {count > 1 && (
-      <button
-       type="button"
-       aria-label="Previous photo"
-       onClick={(e) => {
-        e.stopPropagation();
-        lbPrev();
-       }}
-       className="absolute left-3 flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:left-6"
-      >
-       <ChevronLeft className="size-6" />
-      </button>
-     )}
+  return (
+    <section className="mt-10 space-y-4">
+      <h2 className="font-raleway text-[22px] font-bold text-neutral-900 dark:text-neutral-100">
+        Photos
+      </h2>
 
-     <div
-      className="relative h-[82vh] w-[92vw] max-w-5xl"
-      onClick={(e) => e.stopPropagation()}
-     >
-      <Image
-       src={photos[index].full}
-       alt={photos[index].alt}
-       fill
-       sizes="92vw"
-       className="object-contain"
-       priority
-      />
-     </div>
+      {/* Main Feature Carousel Viewport */}
+      <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-border bg-card shadow-sm group/carousel">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={carouselIndex}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setLightboxIndex(carouselIndex)}
+            className="relative w-full h-full cursor-zoom-in"
+          >
+            <Image
+              src={photos[carouselIndex].full}
+              alt={photos[carouselIndex].alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 800px"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center">
+              <span className="text-white bg-black/75 px-4 py-2 rounded-full text-xs font-semibold opacity-0 hover:opacity-100 group-hover/carousel:opacity-100 transition-opacity flex items-center gap-1.5 shadow-md">
+                <ZoomIn className="h-3.5 w-3.5" /> Click to enlarge
+              </span>
+            </div>
+          </motion.div>
+        </AnimatePresence>
 
-     {count > 1 && (
-      <button
-       type="button"
-       aria-label="Next photo"
-       onClick={(e) => {
-        e.stopPropagation();
-        lbNext();
-       }}
-       className="absolute right-3 flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-6"
-      >
-       <ChevronRight className="size-6" />
-      </button>
-     )}
+        {/* Left/Right Navigation Buttons */}
+        {count > 1 && (
+          <>
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/55 hover:bg-black/75 text-white transition-all opacity-0 group-hover/carousel:opacity-100 shadow-md hover:scale-105"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/55 hover:bg-black/75 text-white transition-all opacity-0 group-hover/carousel:opacity-100 shadow-md hover:scale-105"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </>
+        )}
 
-     {count > 1 && (
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 font-montserrat text-sm text-white/80">
-       {index + 1} / {count}
+        {/* Slide Count Badge */}
+        <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-xs font-semibold font-montserrat select-none">
+          {carouselIndex + 1} / {count}
+        </div>
       </div>
-     )}
-    </div>
-   )}
-  </section>
- );
+
+      {/* Thumbnail Navigation Row */}
+      {count > 1 && (
+        <div className="flex gap-2.5 overflow-x-auto py-2 scrollbar-none">
+          {photos.map((photo, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCarouselIndex(idx)}
+              className={`relative aspect-[16/10] w-20 sm:w-24 rounded-lg overflow-hidden border-2 shrink-0 transition-all ${
+                carouselIndex === idx
+                  ? "border-cranberry ring-2 ring-cranberry/25 scale-95"
+                  : "border-border hover:border-neutral-400"
+              }`}
+            >
+              <Image
+                src={photo.thumb}
+                alt={photo.alt}
+                fill
+                sizes="100px"
+                className="object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Lightbox Carousel Modal */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightboxIndex(null)}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 p-4 cursor-zoom-out"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setLightboxIndex(null)}
+              className="absolute top-6 right-6 text-white/75 hover:text-white bg-white/10 hover:bg-white/25 p-3 rounded-full transition-colors z-[110]"
+              aria-label="Close lightbox"
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            {/* Left Navigation Arrow */}
+            {count > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex((prev) => (prev! - 1 + count) % count);
+                }}
+                className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-[110] shadow-md hover:scale-105"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+            )}
+
+            {/* Right Navigation Arrow */}
+            {count > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex((prev) => (prev! + 1) % count);
+                }}
+                className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-[110] shadow-md hover:scale-105"
+                aria-label="Next image"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            )}
+
+            {/* Image Wrapper */}
+            <motion.div
+              key={lightboxIndex}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 250 }}
+              className="relative max-w-5xl max-h-[85vh] w-full h-full flex flex-col items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={photos[lightboxIndex].full}
+                  alt={photos[lightboxIndex].alt}
+                  fill
+                  sizes="100vw"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              {photos[lightboxIndex].alt && (
+                <p className="mt-4 text-center text-white/90 font-montserrat text-xs md:text-sm max-w-2xl px-4 select-none">
+                  {photos[lightboxIndex].alt}
+                </p>
+              )}
+            </motion.div>
+
+            {/* Fullscreen Slide Count Indicator */}
+            <div className="absolute bottom-6 bg-white/10 text-white px-4 py-1.5 rounded-full text-xs font-semibold font-montserrat select-none">
+              {lightboxIndex + 1} / {count}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
 };
 
 export default EventGallery;

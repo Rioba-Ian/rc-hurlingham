@@ -91,7 +91,7 @@ export default async function EventPage({
     )}
     <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(38,38,38,0.9),rgba(38,38,38,0.25))]" />
     <div className="absolute inset-x-0 bottom-0 px-6 pb-9">
-     <div className="mx-auto max-w-[860px] text-white">
+     <div className="mx-auto max-w-[1080px] text-white">
       <Link
        href="/events"
        className="mb-[22px] inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-2 font-montserrat text-[13px] backdrop-blur-sm transition-colors hover:bg-white/25"
@@ -106,7 +106,7 @@ export default async function EventPage({
    </div>
 
    {/* Body + sidebar */}
-   <div className="mx-auto grid max-w-[860px] gap-11 px-6 pt-10 md:grid-cols-[1fr_300px]">
+   <div className="mx-auto grid max-w-[1080px] gap-12 px-6 pt-10 md:grid-cols-[1fr_350px]">
     <div>
      <h2 className="mb-4 mt-0 font-raleway text-[22px] font-bold text-neutral-900 dark:text-neutral-100">
       About this event
@@ -145,7 +145,7 @@ export default async function EventPage({
        <div className="rounded-[10px] bg-neutral-100 p-3 text-center font-montserrat text-[13.5px] text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
         This event has ended. Thanks to all who came!
        </div>
-      ) : rsvpLink ? (
+      ) : rsvpLink && (rsvpLink.startsWith("http://") || rsvpLink.startsWith("https://")) ? (
        <a
         href={rsvpLink}
         target="_blank"
@@ -154,6 +154,10 @@ export default async function EventPage({
        >
         RSVP / Register
        </a>
+      ) : rsvpLink ? (
+       <div className="rounded-[10px] bg-neutral-50 border border-border p-3 text-center font-montserrat text-[13.5px] text-neutral-700 dark:bg-neutral-800/50 dark:text-neutral-300 font-medium">
+        {rsvpLink}
+       </div>
       ) : (
        <Link
         href="/contact"
@@ -166,7 +170,7 @@ export default async function EventPage({
     </aside>
    </div>
 
-   <div className="mx-auto max-w-[860px] px-6">
+   <div className="mx-auto max-w-[1080px] px-6">
     <EventGallery photos={galleryPhotos} />
     <ArticleShare title={data.title} />
    </div>
