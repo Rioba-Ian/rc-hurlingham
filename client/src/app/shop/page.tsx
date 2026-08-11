@@ -40,32 +40,54 @@ export default function ShopPage() {
   return (
     <div className="min-h-screen bg-background pb-20 pt-28">
       {/* Hero Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-cranberry/10 via-background to-background py-16 dark:from-cranberry/20">
-        <div className="mx-auto max-w-[1080px] px-6 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cranberry/30 bg-cranberry/10 px-4 py-1.5 font-montserrat text-xs font-bold uppercase tracking-wider text-cranberry">
-            <Sparkles className="size-4" /> Official Rotaract Merchandise
-          </div>
+      <section className="relative flex items-center min-h-[70vh] py-12 lg:py-24">
+        <div className="mx-auto w-full max-w-[1080px] px-6">
+          <div className="grid gap-10 lg:grid-cols-12 items-center">
+            {/* Left Column: Content */}
+            <div className="flex flex-col items-start text-left lg:col-span-7">
+              <h1 className="font-raleway text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-[1.1]">
+                Wear the Impact. <br />
+                <span className="text-cranberry">Support the Mission.</span>
+              </h1>
 
-          <h1 className="mt-4 font-raleway text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Wear the Impact. <br />
-            <span className="text-cranberry">Support the Mission.</span>
-          </h1>
+              <p className="mt-4 max-w-xl font-montserrat text-base text-muted-foreground sm:text-lg leading-relaxed">
+                100% of proceeds from our merchandise sales directly fund community service projects, youth empowerment, and local initiatives led by the Rotaract Club of Hurlingham.
+              </p>
 
-          <p className="mx-auto mt-4 max-w-2xl font-montserrat text-base text-muted-foreground sm:text-lg">
-            100% of proceeds from our merchandise sales directly fund community service projects, youth empowerment, and local initiatives led by the Rotaract Club of Hurlingham.
-          </p>
+              {/* Search Bar */}
+              <div className="mt-8 w-full max-w-md">
+                <div className="relative flex items-center">
+                  <Search className="absolute left-4 size-5 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search hoodies, polo shirts, lapel pins, flasks..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="h-13 w-full rounded-2xl border border-border bg-card pl-12 pr-4 font-montserrat text-sm shadow-sm transition-all focus:border-cranberry focus:outline-none focus:ring-2 focus:ring-cranberry/20"
+                  />
+                </div>
+              </div>
+            </div>
 
-          {/* Search & Filter Bar */}
-          <div className="mx-auto mt-8 max-w-xl">
-            <div className="relative flex items-center">
-              <Search className="absolute left-4 size-5 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Search hoodies, polo shirts, lapel pins, flasks..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-13 w-full rounded-2xl border border-border bg-card pl-12 pr-4 font-montserrat text-sm shadow-sm transition-all focus:border-cranberry focus:outline-none focus:ring-2 focus:ring-cranberry/20"
-              />
+            {/* Right Column: Hero Images Showcase */}
+            <div className="lg:col-span-5 relative w-full">
+              <div className="relative aspect-[4/3] lg:aspect-square w-full overflow-hidden rounded-3xl border border-border bg-card shadow-xl lg:min-h-[460px]">
+                <img
+                  src={PRODUCTS[0].images[0]}
+                  alt="Rotaract Hurlingham Merchandise Showcase"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
+                  <div className="text-white">
+                    <span className="font-montserrat text-xs font-bold uppercase tracking-wider text-cranberry-foreground/80">
+                      Featured Collection
+                    </span>
+                    <h3 className="font-raleway text-lg font-bold">
+                      {PRODUCTS[0].name}
+                    </h3>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

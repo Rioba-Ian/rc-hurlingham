@@ -58,12 +58,12 @@ export const Header = () => {
    >
     <div
      className={cn(
-      "mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12",
+      "mx-auto mt-2 max-w-7xl px-4 transition-all duration-300 sm:px-6 lg:px-8",
       isScrolled &&
-       "bg-background/20 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5",
+       "bg-background/20 max-w-5xl rounded-2xl border backdrop-blur-lg lg:px-6",
      )}
     >
-     <div className="relative flex flex-wrap items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4">
+     <div className="relative flex flex-wrap items-center justify-between gap-4 py-2 lg:flex-nowrap lg:gap-6 lg:py-4">
       <div className="flex w-full items-center justify-between lg:w-auto">
        <Link href={"/"}>
         <Image
@@ -85,8 +85,8 @@ export const Header = () => {
        </button>
       </div>
 
-      <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-       <ul className="flex items-center gap-8 text-sm">
+      <div className="hidden lg:flex lg:items-center">
+       <ul className="flex items-center gap-6 lg:gap-8 text-sm">
         {menuItems.map((item, index) => (
          <li key={index}>
           <Link
