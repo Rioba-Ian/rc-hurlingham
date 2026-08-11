@@ -1,6 +1,9 @@
+"use client";
+
 import { FaXTwitter, FaInstagram, FaFacebookF } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 // Define sections as a constant
 const sections = [
@@ -49,6 +52,12 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+ const pathname = usePathname();
+
+ if (pathname?.startsWith("/shop")) {
+  return null;
+ }
+
  return (
   <footer className="container mx-auto py-16 bg-cranberry-foreground dark:bg-neutral-800">
    <div className="space-y-8 px-4 sm:px-6 lg:space-y-16 lg:px-8">

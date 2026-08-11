@@ -2,12 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ShoppingBag } from "lucide-react";
 import ClubLogo from "@/assets/club_logo.png";
 import ThemeSwitch from "./ThemeSwitch";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useCart } from "@/context/CartContext";
 
 const menuItems = [
  { name: "Home", href: "/" },
@@ -18,6 +19,7 @@ const menuItems = [
 ];
 
 const moreItems = [
+ { name: "Shop", href: "/shop" },
  { name: "Gallery", href: "/gallery" },
  { name: "Projects", href: "/projects" },
  { name: "RYLA", href: "/ryla" },
@@ -26,6 +28,8 @@ const moreItems = [
 export const Header = () => {
  const [menuState, setMenuState] = React.useState(false);
  const [isScrolled, setIsScrolled] = React.useState(false);
+ const { toggleCart, cartCount } = useCart();
+ const pathname = usePathname();
 
  React.useEffect(() => {
   const handleScroll = () => {
@@ -35,12 +39,16 @@ export const Header = () => {
   return () => window.removeEventListener("scroll", handleScroll);
  }, []);
 
- const pathname = usePathname();
- const isHome = pathname === "/";
-
  React.useEffect(() => {
   setMenuState(false);
  }, [pathname]);
+
+ const isHome = pathname === "/";
+
+ // Hide main header on shop routes (since shop has its own dedicated header)
+ if (pathname?.startsWith("/shop")) {
+  return null;
+ }
 
  return (
   <header>
@@ -158,7 +166,19 @@ export const Header = () => {
          ))}
         </ul>
        </div>
-       <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+       <div className="flex w-full items-center gap-3 space-y-0 sm:flex-row md:w-fit">
+        <button
+         onClick={toggleCart}
+         className="relative flex size-9 items-center justify-center rounded-xl border border-border bg-background text-foreground shadow-sm transition-all hover:bg-accent hover:border-cranberry/40"
+         aria-label="Open Shopping Bag"
+        >
+         <ShoppingBag className="size-4 text-foreground" />
+         {cartCount > 0 && (
+          <span className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full bg-cranberry font-montserrat text-[10px] font-bold text-white shadow-md animate-in zoom-in-50">
+           {cartCount}
+          </span>
+         )}
+        </button>
         <ThemeSwitch />
         <Button
          asChild
