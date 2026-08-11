@@ -41,6 +41,8 @@ COPY --from=builder /opt/app/tsconfig.json ./
 COPY --from=builder /opt/app/src ./src
 COPY --from=builder /opt/app/dist ./dist
 COPY --from=builder /opt/app/public ./public
+COPY --from=builder /opt/app/favicon.ico ./
+COPY --from=builder /opt/app/favicon.png ./
 
 # Place the admin panel build where Strapi expects it at runtime
 RUN mkdir -p node_modules/@strapi/admin/dist/server/server/build && \
