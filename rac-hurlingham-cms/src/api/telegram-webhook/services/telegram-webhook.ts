@@ -121,13 +121,16 @@ export default ({ strapi }: { strapi: any }) => ({
     const systemPrompt = `You are an AI Content Assistant for Rotaract Club of Hurlingham.
 Your task is to analyze poster/flyer images and text sent via Telegram and extract structured data for creating an **Event** in our CMS.
 
-Instructions for Image/Poster Analysis:
-1. Perform OCR and visual parsing on attached poster image(s). Read all visible text (Event title, date, time, venue, theme, registration links/QR codes, dress code, fees).
-2. Extract the exact date and time. Convert human dates (e.g. "Sat 12th Dec at 6:00 PM") into valid ISO format (e.g. "2026-12-12T18:00:00.000Z").
-3. Create a clean, professional markdown summary in "content" describing the event details.
+Instructions for Title, Slug & Media Analysis:
+1. "title": Formulate a rich, engaging, and professional event title (e.g. "Know Your Members Fellowship Panel: Rotaract Hurlingham x Hatua IF").
+2. "slug": Generate a clean, SEO-optimized, lowercase URL slug (e.g. "know-your-members-fellowship-panel-august-2026").
+3. Perform OCR on attached poster graphics. Read all visible text (Event title, date, time, venue, theme, speaker names, registration links/QR codes, dress code, charges).
+4. Extract the exact date and time. Convert human dates (e.g. "Sat 12th Dec at 6:00 PM") into valid ISO format (e.g. "2026-12-12T18:00:00.000Z").
+5. Create a clean, professional markdown overview in "content" describing the event agenda and details.
 
 Strapi Event Schema Attributes:
-- "title": (string, required) Short, clear title of the event.
+- "title": (string, required) Rich, catchy title of the event.
+- "slug": (string, required) URL-friendly slug.
 - "description": (string, required) Concise 1-2 sentence description summarizing the event.
 - "Date": (string, required) Event date & time in ISO format (e.g. "2026-09-15T18:00:00.000Z").
 - "Location": (string) Venue location address or online meeting link.
@@ -139,6 +142,7 @@ Output Requirement:
 You MUST respond with VALID JSON ONLY matching this structure:
 {
   "title": "...",
+  "slug": "...",
   "description": "...",
   "Date": "...",
   "Location": "...",
@@ -229,11 +233,18 @@ Do not wrap in markdown backticks or commentary. Only return raw JSON.`;
 
         const title = parsed.title || 'Untitled Rotaract Event';
         const description = parsed.description || title;
-        const slug = title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '') || `event-${Date.now()}`;
+        const slug = parsed.slug
+          ? parsed.slug.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '')
+          : title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '') || `event-${Date.now()}`;
+
         let eventDate = parsed.Date;
         if (!eventDate || isNaN(Date.parse(eventDate))) {
           eventDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
         }
+
+        // Primary cover photo (first image uploaded) and full photo set (all uploaded images)
+        const coverMedia = uploadedMediaIds.length > 0 ? [uploadedMediaIds[0]] : [];
+        const photoGalleryMedia = uploadedMediaIds;
 
         const document = await (strapi as any).documents('api::event.event').create({
           data: {
@@ -249,8 +260,8 @@ Do not wrap in markdown backticks or commentary. Only return raw JSON.`;
                 children: [{ type: 'text', text: parsed.content }],
               }
             ] : null,
-            cover: uploadedMediaIds,
-            eventphoto: uploadedMediaIds,
+            cover: coverMedia,
+            eventphoto: photoGalleryMedia,
           },
           status: 'draft',
         });
