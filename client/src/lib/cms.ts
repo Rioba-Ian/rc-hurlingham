@@ -177,10 +177,21 @@ export async function fetchEventBySlug(
  }
 
  try {
-  const url = `${CMS_URL}/api/events?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`;
+  let isDraft = false;
+  try {
+   const { draftMode } = await import("next/headers");
+   isDraft = (await draftMode()).isEnabled;
+  } catch (e) {
+   // Ignore if called outside request context
+  }
+
+  const draftParam = isDraft ? "&publicationState=preview" : "";
+  const url = `${CMS_URL}/api/events?filters[$or][0][slug][$eq]=${encodeURIComponent(slug)}&filters[$or][1][documentId][$eq]=${encodeURIComponent(slug)}${draftParam}&populate=*`;
+  
   const response = await fetch(url, {
    headers: getHeaders(),
-   next: { revalidate: 60 },
+   cache: isDraft ? "no-store" : undefined,
+   next: isDraft ? undefined : { revalidate: 60 },
   });
 
   if (!response.ok) {
