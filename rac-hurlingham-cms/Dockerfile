@@ -17,7 +17,7 @@ RUN npm ci
 
 # Copy source and build the admin panel + compile TS.
 COPY . .
-RUN NODE_OPTIONS="--max-old-space-size=1024" npm run build
+RUN NODE_OPTIONS="--max-old-space-size=2048" npm run build
 
 # ─── Stage 2: Runner ──────────────────────────────────────────────
 # Slim production image — no compilers.
