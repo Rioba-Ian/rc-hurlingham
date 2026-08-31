@@ -33,4 +33,11 @@ git push
 
 The server will automatically build and deploy.
 
+## Telegram Bot CMS Automation
+
+We support updating CMS content directly from Telegram using an OpenRouter LLM integration.
+
+- 📖 **Complete Setup Guide**: See [`docs/TELEGRAM_BOT_SETUP.md`](file:///Users/digitap/Documents/SideProjects/rc-hurlingham/docs/TELEGRAM_BOT_SETUP.md) for step-by-step instructions on creating your bot, getting chat IDs, registering webhooks, and testing.
+
+
 
