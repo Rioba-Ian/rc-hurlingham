@@ -210,6 +210,21 @@ export interface Director {
  publishedAt: string;
 }
 
+export interface GalleryAlbum {
+ id: number;
+ documentId: string;
+ eventTitle: string;
+ slug: string;
+ date?: string | null;
+ coverImage?: Cover | null;
+ Photos?: Cover[] | null;
+ caption?: BlocksContent | string | null;
+ category?: Category | null;
+ createdAt: string;
+ updatedAt: string;
+ publishedAt: string;
+}
+
 export interface Project {
  id: number;
  documentId: string;

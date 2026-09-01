@@ -727,6 +727,7 @@ export interface ApiGalleryAlbumGalleryAlbum
   };
   attributes: {
     caption: Schema.Attribute.Blocks;
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     coverImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;

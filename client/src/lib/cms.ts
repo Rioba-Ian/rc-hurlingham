@@ -3,6 +3,7 @@ import {
  Cover,
  Director,
  Event,
+ GalleryAlbum,
  Project,
  StrapiListResponse,
  StrapiSingleResponse,
@@ -304,3 +305,78 @@ export async function fetchProjectBySlug(
   return { data: null };
  }
 }
+
+export async function fetchGalleryAlbums(): Promise<StrapiListResponse<GalleryAlbum>> {
+ const empty: StrapiListResponse<GalleryAlbum> = {
+  data: [],
+  meta: { pagination: { page: 1, pageSize: 25, pageCount: 0, total: 0 } },
+ };
+
+ if (!CMS_URL || !CMS_TOKEN) {
+  console.warn("CMS configuration missing, returning empty gallery albums list");
+  return empty;
+ }
+
+ try {
+  const url = `${CMS_URL}/api/gallery-albums?populate=*`;
+  const response = await fetch(url, {
+   headers: getHeaders(),
+   next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+   console.error(
+    `Failed to fetch gallery albums: ${response.status} - ${response.statusText}`,
+   );
+   return empty;
+  }
+
+  return response.json();
+ } catch (error) {
+  console.error("Error fetching gallery albums:", error);
+  return empty;
+ }
+}
+
+export async function fetchGalleryAlbumBySlug(
+ slug: string,
+): Promise<StrapiSingleResponse<GalleryAlbum>> {
+ if (!CMS_URL || !CMS_TOKEN) {
+  console.warn("CMS configuration missing, returning null gallery album");
+  return { data: null };
+ }
+
+ try {
+  let isDraft = false;
+  try {
+   const { draftMode } = await import("next/headers");
+   isDraft = (await draftMode()).isEnabled;
+  } catch (e) {
+   // Ignore if called outside request context
+  }
+
+  const draftParam = isDraft ? "&publicationState=preview" : "";
+  const url = `${CMS_URL}/api/gallery-albums?filters[$or][0][slug][$eq]=${encodeURIComponent(slug)}&filters[$or][1][documentId][$eq]=${encodeURIComponent(slug)}${draftParam}&populate=*`;
+
+  const response = await fetch(url, {
+   headers: getHeaders(),
+   cache: isDraft ? "no-store" : undefined,
+   next: isDraft ? undefined : { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+   console.error(
+    `Failed to fetch gallery album: ${response.status} - ${response.statusText}`,
+   );
+   return { data: null };
+  }
+
+  const list = (await response.json()) as StrapiListResponse<GalleryAlbum>;
+  const raw = list.data[0];
+  return { data: raw ?? null };
+ } catch (error) {
+  console.error("Error fetching gallery album:", error);
+  return { data: null };
+ }
+}
+

@@ -43,6 +43,11 @@
     },
     "caption": {
       "type": "blocks"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
     }
   }
 }

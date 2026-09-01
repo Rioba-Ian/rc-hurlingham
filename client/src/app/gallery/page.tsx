@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/molecules/ComingSoon";
+import GalleryClient from "@/components/organisms/gallery/GalleryClient";
+import { fetchGalleryAlbums } from "@/lib/cms";
 
 export const metadata: Metadata = {
- title: "Gallery",
- description:
-  "Photos from the Rotaract Club of Hurlingham's projects, events and socials — coming soon.",
+  title: "Photo Gallery | Rotaract Club of Hurlingham",
+  description:
+    "Explore photo albums and memories from the Rotaract Club of Hurlingham's community projects, events, and socials.",
 };
 
-export default function GalleryPage() {
- return (
-  <main className="flex flex-col">
-   <ComingSoon />
-  </main>
- );
+export default async function GalleryPage() {
+  const albumsResponse = await fetchGalleryAlbums();
+  const albums = albumsResponse.data ?? [];
+
+  return (
+    <main className="min-h-screen">
+      <GalleryClient albums={albums} />
+    </main>
+  );
 }
